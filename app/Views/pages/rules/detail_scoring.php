@@ -16,13 +16,14 @@
         <form action="/rules/saveCriterion" method="post">
 
             <?php csrf_field();  //only can be input here, prohibited input data outside of this form 
+            // dd($criterion);
             ?>
 
             <div class="mt-3">
                 <div class="mb-3 row">
                     <label for="inputUsername" class="col-sm-2 col-form-label">Nama Kategori</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputUsername" name="inputUsername" value="<?= $criterion["criterion_name"]; ?>">
+                        <input type="text" class="form-control" id="inputUsername" name="inputUsername" value="<?= $criterion['criterion_name']; ?>">
                     </div>
                 </div>
                 <div class="mt-5 mb-3 row">
@@ -36,7 +37,7 @@
         </form>
 
         <div class="align-end mb-3 mt-3">
-            <a class="btn btn-primary" href="/rules/addScoringIndicator/<?= $criterion['id']; ?>">Tambah Kriteria</a>
+            <a class="btn btn-primary" href="/rules/addScoringIndicator/<?= $criterion['id']; ?>">Tambah Indikator</a>
         </div>
 
 
@@ -67,8 +68,7 @@
                             <td> <?php $u['is_active'] ==  1 ? print("Ya") : print("Tidak") ?>
                             </td>
                             <td>
-                                <a class="btn btn-success" href="/rules/detail/<?= $u['id']; ?>">Detail</a>
-                                <a class="btn btn-danger" href="rules/delete/<?= $u['id']; ?>">Delete</a>
+                                <a class="btn btn-danger" href="/rules/deleteScoringIndicator/<?= $u['id']; ?>/<?= $criterion['id']; ?>">Delete</a>
 
                             </td>
                         </tr>

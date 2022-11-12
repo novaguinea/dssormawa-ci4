@@ -7,7 +7,8 @@ $routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
-if (is_file(SYSTEMPATH . 'Config/Routes.php')) {
+if (is_file(SYSTEMPATH . 'Config/Routes.php')) 
+{
     require SYSTEMPATH . 'Config/Routes.php';
 }
 
@@ -49,17 +50,29 @@ $routes->post('/users/saveUser', 'Users::saveUser');
 
 //routes for rules
 $routes->get('/rules', 'Rules::index');
-$routes->get('/rules/detail/(:segment)', 'Rules::detailCategory/$1');
-$routes->get('/rules/detail/criterion/(:segment)/(:segment)', 'Rules::detailCriterion/$1/$2');
+$routes->get('/rules/detail/(:segment)', 'Rules::detailCategory/$1'); //detail category
+$routes->get('/rules/detail/criterion/(:segment)', 'Rules::detailCriterion/$1'); //detail criterion
 
 $routes->get('/rules/deleteCategory/(:segment)', 'Rules::deleteCategory/$1');
-$routes->get('/rules/deleteCriterion/(:segment)/(:segment)', 'Rules::deleteCriterion/$1');
+$routes->get('/rules/deleteCriterion/(:segment)', 'Rules::deleteCriterion/$1');
+$routes->get('/rules/deleteScoringIndicator/(:segment)/(:segment)', 'Rules::deleteScoringIndicator/$1/$2');
 
 $routes->post('/rules/addCategory', 'Rules::addCategory');
 $routes->get('/rules/addCriterion/(:segment)', 'Rules::addCriterion/$1');
 $routes->get('/rules/addScoringIndicator/(:segment)', 'Rules::addScoringIndicator/$1');
 
 $routes->post('/rules/saveCriterion', 'Rules::saveCriterion');
+$routes->post('/rules/saveScoringIndicator', 'Rules::saveScoringIndicator');
+
+/**
+ * 
+ * ORMAWA side routes
+ * focused on filling data ormawa and view data also view result
+ * 
+ */
+
+$routes->get('/ormawa/category', 'DataOrmawa::detailCategory');
+$routes->get('/ormawa/category/criterion', 'DataOrmawa::detailCriterion');
 
 
 

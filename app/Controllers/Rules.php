@@ -64,15 +64,38 @@ class Rules extends BaseController
     {
         // dd($this->request->getVar());
         $id = $this->request->getPost("hiddenCategoryId");
+        $dataWeight = $this->request->getPost("inputCriterionWeight");
 
-        $this->criterionModel->addCriterion([
-            'id_cat' => $id,
-            'criterion_name' => $this->request->getPost("inputCriterion"),
-            'criterion_weight' => $this->request->getPost("inputCriterionWeight"),
+        if($this->checkCriterionWeighting($dataWeight)) //for checking whether this criterion is under 100 or not
+        {
+            $this->criterionModel->addCriterion([
+                'id_cat' => $id,
+                'criterion_name' => $this->request->getPost("inputCriterion"),
+                'criterion_weight' => $this->request->getPost("inputCriterionWeight"),
+                'is_active' => 1
+            ]);
+
+            return redirect()->to("/rules/detail/$id");
+        }
+
+        return redirect()->to("/rules/detail/$id");
+        
+    }
+
+    public function saveScoringIndicator()
+    {
+        // dd($this->request->getVar());
+        $idCriterion = $this->request->getPost("hiddenCriterionId");
+        $idCategory = $this->request->getPost("hiddenCategoryId");
+
+        $this->scoringModel->addScoring([
+            'id_criterion' => $idCriterion,
+            'description' => $this->request->getPost("inputIndicatorDesc"),
+            'score' => $this->request->getPost("inputIndicatorScore"),
             'is_active' => 1
         ]);
 
-        return redirect()->to("/rules/detail/$id");
+        return redirect()->to("/rules/detail/criterion/$idCriterion");
     }
 
     public function detailCategory($id)
@@ -86,12 +109,12 @@ class Rules extends BaseController
         return view('pages/rules/detail_category', $data);
     }
 
-    public function detailCriterion($idCategory, $idCriterion)
+    public function detailCriterion($idCriterion)
     {
         $data = [
             'title' => 'Detail Kategori',
             'criterion' => $this->criterionModel->getCriterionById($idCriterion),
-            'scoring' => $this->scoringModel->getScoringByCriterion($idCategory)
+            'scoring' => $this->scoringModel->getScoringByCriterion($idCriterion)
         ];
 
         return view('pages/rules/detail_scoring', $data);
@@ -107,11 +130,11 @@ class Rules extends BaseController
         return view('pages/rules/add_criterion', $data);
     }
 
-    public function addScoringIndicator($id)
+    public function addScoringIndicator($idCriterion)
     {
         $data = [
             'title' => 'Add New Criterion',
-            'criterion' => $this->criterionModel->getCriterionById($id)
+            'criterionId' => $idCriterion
         ];
 
         return view('pages/rules/add_scoring', $data);
@@ -133,13 +156,44 @@ class Rules extends BaseController
         return redirect()->to("/rules/detail/$idCat");
     }
 
-    public function deleteScoringIndicator($idCategory, $idCriterion)
+    public function deleteScoringIndicator($idScoring, $idCriterion)
     {
         // $idCat = $this->criterionModel->getCriterionById($id);
         // $idCat = $idCat['id_cat'];
-        // $this->criterionModel->deleteCriterion($id);
+        $this->scoringModel->deleteScoring($idScoring);
 
-        // return redirect()->to("/rules/detail/$idCat");
+        return redirect()->to("/rules/detail/criterion/$idCriterion");
     }
+
+    /**
+     * 
+     * Additional function for rules
+     * 
+     * 1. weighting no more than 100% for each category
+     * 
+     */
+
+    public function checkCriterionWeighting($newData): bool
+    {
+        $data = $this->criterionModel->getCriterions();
+        $data_length = count($data);
+
+        $weight_calculated = 0;
+        $isSafe = true;
+
+        for ($i = 0; $i < $data_length; $i++) {
+            $weight_calculated = $weight_calculated + $data[$i]['criterion_weight'];
+        }
+
+        if(($weight_calculated + $newData) > 100)
+        {
+            $isSafe = false;
+        }
+
+        return $isSafe;
+    }
+
+
+  
 
 }

@@ -62,7 +62,7 @@
                         <td> <?php $u['is_active'] ==  1 ? print("Ya") : print("Tidak") ?>
                         </td>
                         <td>
-                            <a class="btn btn-success" href="/rules/detail/criterion/<?= $category['id']; ?>/<?= $u['id']; ?>">Detail</a>
+                            <a class="btn btn-success" href="/rules/detail/criterion/<?= $u['id']; ?>">Detail</a>
                             <a class="btn btn-danger" href="/rules/deleteCriterion/<?= $u['id']; ?>">Delete</a>
 
                         </td>
