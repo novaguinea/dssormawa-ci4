@@ -20,7 +20,7 @@ class DataOrmawa extends BaseController
         $this->scoringModel = new ScoringModel();
     }
 
-    public function detailCategory()
+    public function listOfCategory()
     {
 
         $data = [
@@ -31,16 +31,26 @@ class DataOrmawa extends BaseController
         return view('pages/dataormawa/index', $data);
     }
 
-    public function detailCriterion()
+    public function detailCategory($id)
     {
-
-        $data = [
+        $data = [   
             'title' => 'Kategori Penilaian',
-            'category' => $this->categoryModel->getCategories()
+            'category' => $this->categoryModel->getCategoryById($id),
+            'criterion' => $this->criterionModel->getCriterionByCategory($id)
         ];
 
-        return view('pages/dataormawa/index', $data);
+        return view('pages/dataormawa/data_criterion', $data);
     }
 
+    public function detailCriterion($id)
+    {
+        $data = [
+            'title' => 'Kategori Penilaian',
+            'criterion' => $this->criterionModel->getCriterionById($id),
+            'data_nilai' =>
+        ];
+
+        return view('pages/dataormawa/input_data', $data);
+    }
     
 }

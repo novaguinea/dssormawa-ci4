@@ -71,9 +71,9 @@ $routes->post('/rules/saveScoringIndicator', 'Rules::saveScoringIndicator');
  * 
  */
 
-$routes->get('/ormawa/category', 'DataOrmawa::detailCategory');
-$routes->get('/ormawa/category/criterion', 'DataOrmawa::detailCriterion');
-
+$routes->get('/ormawa/category', 'DataOrmawa::listOfCategory');
+$routes->get('/ormawa/category/(:segment)', 'DataOrmawa::detailCategory/$1');
+$routes->get('/ormawa/category/criterion/(:segment)', 'DataOrmawa::detailCriterion/$1');
 
 
 /*

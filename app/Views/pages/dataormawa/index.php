@@ -47,9 +47,9 @@
                         <tr>
                             <th scope="row"><?= $x; ?></th>
                             <td><?= $u['category_name']; ?></td>
-                            
+
                             <td>
-                                <a class="btn btn-success" href="/rules/detail/<?= $u['id']; ?>">Detail</a>
+                                <a class="btn btn-success" href="/ormawa/category/<?= $u['id']; ?>">Detail</a>
                             </td>
                         </tr>
                         <?php $x++; ?>

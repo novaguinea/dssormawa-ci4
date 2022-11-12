@@ -18,7 +18,7 @@
 
             <div class="mt-5">
                 <div class="mb-4 row">
-                    <h4 style="color:dimgray"><b style="color:#0E0E0E">Penilaian kategori:</b> <?= $category["category_name"]; ?></h4>
+                    <h4 style="color:dimgray"><b style="color:#0E0E0E">Penilaian kategori:</b> <?= $criterion["criterion_name"]; ?></h4>
                 </div>
             </div>
         </form>
@@ -44,7 +44,7 @@
                         <td><?= $u['criterion_weight']; ?></td>
                         </td>
                         <td>
-                            <a class="btn btn-success" href="/ormawa/category/criterion/<?= $u['id']; ?>">Isi Data</a>
+                            <a class="btn btn-success" href="/rules/detail/criterion/<?= $u['id']; ?>">Isi Data</a>
 
                         </td>
                     </tr>
