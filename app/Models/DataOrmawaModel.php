@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use App\Models\UserModel;
 
 class DataOrmawaModel extends Model
 {
@@ -21,14 +22,28 @@ class DataOrmawaModel extends Model
     protected $validationMessages = [];
     protected $skipValidation     = false;
 
+    public function __construct()
+    {
+        $this->userModel = new UserModel();
+    }
+
     public function getAllData()
     {
         return $this->findAll();
     }
 
-    public function getDataByCriterion($idCriterion) //getting all criterions filter by criterion
+    public function getAllDataByOrmawa($id)
     {
-        return $this->where(['criterion_id' => $idCriterion])->findAll();
+        return $this->where(['ormawa_id' => $id])->findAll();
+    }
+
+    public function getDataByCriterion($idCriterion, $idOrmawa)
+    {
+        /**
+         * getting all criterions filter by criterion
+         * [LATER will be] filtered by ORMAWA ID
+         */
+        return $this->where(['criterion_id' => $idCriterion])->where(['ormawa_id' => $idOrmawa])->findAll();
     }
 
     public function getDataById($id)
@@ -36,12 +51,12 @@ class DataOrmawaModel extends Model
         return $this->where(['id' => $id])->first();
     }
 
-    public function addCriterion($data)
+    public function addData($data)
     {
         return $this->insert($data);
     }
 
-    public function deleteCriterion($id)
+    public function deleteData($id)
     {
         return $this->where(['id' => $id])->delete();
     }

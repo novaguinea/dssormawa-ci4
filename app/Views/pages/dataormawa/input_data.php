@@ -23,36 +23,48 @@
             </div>
         </form>
 
-        <table class="table table-hover mt-3">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nama Kriteria</th>
-                    <th scope="col">Bobot Kriteria %</th>
-                    <th scope="col">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
+        <?php
+        if (!empty($criterion)) :
+        ?>
 
-                <?php
-                $x = 1;
-                // dd($criterion);
-                foreach ($criterion as $u) : ?>
+            <table class="table table-hover mt-3">
+                <thead>
                     <tr>
-                        <th scope="row"><?= $x; ?></th>
-                        <td><?= $u['criterion_name']; ?></td>
-                        <td><?= $u['criterion_weight']; ?></td>
-                        </td>
-                        <td>
-                            <a class="btn btn-success" href="/rules/detail/criterion/<?= $u['id']; ?>">Isi Data</a>
-
-                        </td>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama Kriteria</th>
+                        <th scope="col">Bobot Kriteria %</th>
+                        <th scope="col">Aksi</th>
                     </tr>
-                    <?php $x++; ?>
+                </thead>
+                <tbody>
 
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                    <?php
+                    $x = 1;
+                    dd($criterion['criterion_weight']);
+                    foreach ($criterion as $u) : ?>
+                        <tr>
+                            <th scope="row"><?= $x; ?></th>
+                            <td><?= $u['criterion_name']; ?></td>
+                            <td><?= $u['criterion_weight']; ?></td>
+                            </td>
+                            <td>
+                                <a class="btn btn-success" href="/rules/detail/criterion/<?= $u['id']; ?>">Isi Data</a>
+
+                            </td>
+                        </tr>
+                        <?php $x++; ?>
+
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+        <?php
+        else :
+            echo ('<div class="mt-3"><h3>Data penilaian masih kosong</h3></div>');
+
+        endif;
+
+        ?>
 
     </div>
 </div>

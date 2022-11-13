@@ -13,7 +13,7 @@ class DataOrmawa extends BaseController
 
     public function __construct()
     {
-        $this->userModel = new DataOrmawaModel();
+        $this->dataOrmawaModel = new DataOrmawaModel();
         $this->categoryModel = new CategoryModel();
         $this->variableModel = new VariableModel();
         $this->criterionModel = new CriterionModel();
@@ -47,10 +47,15 @@ class DataOrmawa extends BaseController
         $data = [
             'title' => 'Kategori Penilaian',
             'criterion' => $this->criterionModel->getCriterionById($id),
-            'data_nilai' =>
+            'data_nilai' => $this->dataOrmawaModel
         ];
 
         return view('pages/dataormawa/input_data', $data);
+    }
+
+    public function inputData()
+    {
+        
     }
     
 }
