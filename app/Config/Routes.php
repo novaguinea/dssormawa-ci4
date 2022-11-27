@@ -64,6 +64,11 @@ $routes->get('/rules/addScoringIndicator/(:segment)', 'Rules::addScoringIndicato
 $routes->post('/rules/saveCriterion', 'Rules::saveCriterion');
 $routes->post('/rules/saveScoringIndicator', 'Rules::saveScoringIndicator');
 
+$routes->get('/data', 'Data::index');
+$routes->get('/data/(:segment)', 'Data::detailOrmawa/$1');
+$routes->get('/data/detail/(:segment)', 'Data::detailDataCriterion/$1');
+$routes->get('/data/detail/(:segment)/(:segment)', 'Data::viewDetailData/$1/$2');
+
 /**
  * 
  * ORMAWA side routes
@@ -74,7 +79,7 @@ $routes->post('/rules/saveScoringIndicator', 'Rules::saveScoringIndicator');
 $routes->get('/ormawa/category', 'DataOrmawa::listOfCategory');
 $routes->get('/ormawa/category/(:segment)', 'DataOrmawa::detailCategory/$1');
 $routes->get('/ormawa/category/criterion/(:segment)', 'DataOrmawa::detailCriterion/$1');
-
+$routes->post('/ormawa/category/criterion/saveData', 'DataOrmawa::inputData');
 
 /*
  * --------------------------------------------------------------------

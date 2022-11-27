@@ -31,6 +31,16 @@ class ScoringModel extends Model
         return $this->where(['id_criterion' => $id])->findAll();
     }
 
+    public function getScoringById($id)
+    {
+        return $this->where(['id' => $id])->findAll();
+    }
+
+    public function getScoringByCriterionScore($id)
+    {
+        return $this->where(['id_criterion' => $id])->findAll();
+    }
+
     public function addScoring($data)
     {
         return $this->insert($data);
