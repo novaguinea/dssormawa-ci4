@@ -77,4 +77,72 @@ class Data extends BaseController
         return view('pages/data/detail_data_each_scoring', $data);
     }
 
+    public function mooraCalculation()
+    {
+
+    }
+
+    public function normalizationAlternative()
+    {
+        $dataOrmawa = $this->dataOrmawaModel->getAllData();
+        $criterion = $this->criterionModel->getCriterions();
+        $users = $this->userModel->getUsers();
+
+        $lenData = count($dataOrmawa);
+        $lenCriterion = count($criterion);
+
+
+        foreach ($criterion as $c)
+        {
+            for($y=0; $y=$lenData; $y++)
+            {
+                $score = $this->calculateScore($c['id'], $idOrmawa);
+
+            }
+        }
+
+    /** $data = array(
+         
+                'criterion_id' => (
+            
+                    'ormawa_id_1' => (
+                        'total_score' => $x
+                    ),
+
+                    'ormawa_id_2' => (
+                        'total_score' => $x
+                    ),
+
+                )
+        
+        ) 
+        **/
+
+        $data = [
+            'data' => $dataOrmawa,
+            'criterion' => $criterion
+        ];
+
+        return view('pages/dump', $data);
+
+    }
+
+    //calculating score from each criterion filtered by ormawa_id
+    public function calculateScore($idCriterion, $idOrmawa)
+    {
+        $dataCriterion = $this->dataOrmawaModel->getAllDataByOrmawa($idOrmawa);
+        $dataCount = 0;
+
+        foreach($dataCriterion as $d)
+        {
+            if($d['criterion_id'] == $idCriterion)
+            {
+                $dataCount = $dataCount + $this->scoringModel->getScoringById($d['scoring_id']);
+            }
+
+        }
+
+        return $dataCount;
+    }
+
 }

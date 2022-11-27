@@ -64,10 +64,12 @@ $routes->get('/rules/addScoringIndicator/(:segment)', 'Rules::addScoringIndicato
 $routes->post('/rules/saveCriterion', 'Rules::saveCriterion');
 $routes->post('/rules/saveScoringIndicator', 'Rules::saveScoringIndicator');
 
+$routes->get('/data/dump', 'Data::normalizationAlternative');
 $routes->get('/data', 'Data::index');
 $routes->get('/data/(:segment)', 'Data::detailOrmawa/$1');
 $routes->get('/data/detail/(:segment)', 'Data::detailDataCriterion/$1');
 $routes->get('/data/detail/(:segment)/(:segment)', 'Data::viewDetailData/$1/$2');
+
 
 /**
  * 
