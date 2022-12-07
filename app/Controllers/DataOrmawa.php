@@ -52,7 +52,8 @@ class DataOrmawa extends BaseController
             'title' => 'Isi Data ORMAWA',
             'criterion' => $this->criterionModel->getCriterionById($id),
             'scoring' => $this->scoringModel->getScoringByCriterion($id),
-            'data_nilai' => ($this->dataOrmawaModel->getDataByCriterion($id)),
+            'data_nilai' => $this->dataOrmawaModel->getDataByCriterion($id),
+            'ormawa_id' => 2,
             'files' => $file
         ];
 
@@ -85,12 +86,14 @@ class DataOrmawa extends BaseController
 
             $files = $this->request->getFiles();
 
+            // dd($this->request->getPost('inputDataScoring'));
+
             $data = [
-                'ormawa_id' => 1,
+                'ormawa_id' => 2,
                 'criterion_id' => $id,
                 'title' => $this->request->getPost('inputDataTitle'),
                 'description' => $this->request->getPost('inputDataDescription'),
-                'scoring_id' => $this->request->getPost('inputDataScoring'),
+                'scoring_id' => (int)($this->request->getPost('inputDataScoring')),
                 'file' => $files
             ];
 

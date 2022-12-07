@@ -25,6 +25,11 @@ class UserModel extends Model
     {
         return $this->findAll();
     }
+
+    public function getAllOrmawaUsers()
+    {
+        return $this->where(['is_ormawa' => 1])->findAll();
+    }
     
     public function getUserById($id)
     {

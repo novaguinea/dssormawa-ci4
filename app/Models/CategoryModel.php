@@ -13,7 +13,7 @@ class CategoryModel extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['category_name', 'is_active'];
+    protected $allowedFields = ['category_name', 'cat_weight', 'is_active'];
 
     protected $useTimestamps = true;
 

@@ -40,16 +40,16 @@
                     <div class="mb-3 row">
                         <label for="inputDataScoring" class="col-sm-2 col-form-label">Tingkatan</label>
                         <div class="form-check col-sm-10">
-                            <?php
+                            <?php //aku cuma mau ngerjain TA tenang, tempat enak, ga diganggu. weeei :D
                             $i = 0;
-
-                            // dd($scoring);
-                            foreach ($scoring as $u) : ?>
-
-                                <input class="form-check-input" type="radio" name="inputDataScoring" id="inputDataScoring" value="<?= $scoring[$i]['id'] ?>">
+                            foreach ($scoring as $u) :
+                                // dd($scoring['id']); 
+                            ?>
+                                <input class="form-check-input" type="radio" name="inputDataScoring" id="inputDataScoring" value="<?= (int)$scoring[$i]['id']; ?>" >
                                 <label class="form-check-label mb-2" for="inputDataScoring">
                                     <?= $scoring[$i]['description']; ?>
                                 </label>
+                                <?php var_dump($scoring[$i]['id']); ?>
                                 <br>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
@@ -98,20 +98,23 @@
                     <?php
                     $x = 1;
 
-                    foreach ($data_nilai as $u) : ?>
-                        <tr>
-                            <th scope="row"><?= $x; ?></th>
-                            <td><?= $u['title']; ?></td>
-                            <td><?= $u['description'] ?></td>
-                            <td><?= $u['scoring_id'] ?></td>
-                            <td><?= $u['file'] ?></td>
-                            <td>
-                                <a class="btn btn-success" href="/rules/detail/<?= $u['id']; ?>">Detail</a>
-                                <!-- <a class="btn btn-danger" href="rules/deleteCategory/<?= $u['id']; ?>">Delete</a> -->
+                    foreach ($data_nilai as $u) :
+                        if ($u['ormawa_id'] == $ormawa_id) : ?>
+                            <tr>
+                                <th scope="row"><?= $x; ?></th>
+                                <td><?= $u['title']; ?></td>
+                                <td><?= $u['description'] ?></td>
+                                <td><?= $u['scoring_id'] ?></td>
+                                <td><?= $u['file'] ?></td>
+                                <td>
+                                    <a class="btn btn-success" href="/rules/detail/<?= $u['id']; ?>">Detail</a>
+                                    <!-- <a class="btn btn-danger" href="rules/deleteCategory/<?= $u['id']; ?>">Delete</a> -->
 
-                            </td>
-                        </tr>
-                        <?php $x++; ?>
+                                </td>
+                            </tr>
+                        <?php $x++;
+                        endif;
+                        ?>
 
                     <?php endforeach; ?>
                 </tbody>
