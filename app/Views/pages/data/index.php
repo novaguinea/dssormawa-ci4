@@ -21,8 +21,6 @@
                     <?php
                     $x = 1;
                     foreach ($users as $u) :
-
-                        if ($u['is_ormawa']) :
                     ?>
                             <tr>
                                 <th scope="row"><?= $x; ?></th>
@@ -33,13 +31,42 @@
                                 </td>
                             </tr>
                         <?php $x++;
-
-                        endif;
                         ?>
 
                     <?php endforeach; ?>
                 </tbody>
             </table>
+
+            <hr class="mt-5">
+
+            <h3 class="mt-5 mb-3">Perolehan ORMAWA Terbaik</h3>
+
+            <table class="table table-hover mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Organisasi Kemahasiswaan</th>
+                        <th scope="col">Skor</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <?php
+                    $x = 1;
+                    foreach ($dataormawa as $do => $do_value) :
+                    ?>
+                        <tr>
+                            <th scope="row"><?= $x; ?></th>
+                            <td><?= $do; ?></td>
+                            <td><?=(int)$do_value; ?></td>
+                        </tr>
+                        <?php $x++;
+                        ?>
+
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
         </div>
     </div>
 </div>

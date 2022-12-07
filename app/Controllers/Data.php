@@ -29,9 +29,13 @@ class Data extends BaseController
 
     public function index()
     {
+        $do = $this->finalCalculation();
+        arsort($do);
+
         $data = [
             'title' => 'Kategori Penilaian',
-            'users' => $this->userModel->getUsers()
+            'users' => $this->userModel->getAllOrmawaUsers(),
+            'dataormawa' => $do
         ];
 
         return view('pages/data/index', $data);
@@ -80,16 +84,14 @@ class Data extends BaseController
         return view('pages/data/detail_data_each_scoring', $data);
     }
 
-    public function ranking()
+    public function finalCalculation()
     {
         /**
          * 
          * IMPORTANT!
-         * If you want to show the table of the result, just call this function
+         * If you want to show the final result, just call this function
          * 
          * This function calls all function of MOORA Calculation
-         * 
-         * ranking will be sorted by ormawa's score which calculated by all categories
          * 
          * DISCLAIMER:
          * this ranking terms is in weighted conditions WILL BE CHANGED due time by time regulations
@@ -156,24 +158,20 @@ class Data extends BaseController
                         $temp[$dc] = $temp[$dc] * $category['cat_weight'];
                     }
                     // dd($od);
-                    $ormawaCalculatedData += [$od['id'] => $temp[$dc]];
+                    $ormawaCalculatedData += [$od['nama'] => $temp[$dc]];
                     // var_dump($temp);
                     $temp = null;
                 }
             }
          }
-        /**
-         * this part is sorting highest to lowest score of ormawa
-         */
-
-        return arsort($ormawaCalculatedData);
-
+        
+        return $ormawaCalculatedData;
     }
 
     public function dump()
     {
         $data = $this->mooraCalculation();
-        $rank = $this->ranking($data);
+        $rank = $this->finalCalculation($data);
     }
 
 
