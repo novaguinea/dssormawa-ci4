@@ -34,9 +34,20 @@
                                     <th scope="row"><?= $x; ?></th>
                                     <td><?= $u['title']; ?></td>
                                     <td><?= $u['description']; ?></td>
-                                    <td><?= $u['scoring_id']; ?></td>
+                                    <td><?= $u['score']; ?></td>
                                     <td>
                                         <a class="btn btn-success" href="/data/detail/<?= $u['criterion_id']; ?>/<?= $u['id']; ?>">Detail</a>
+                                        <form action="" method="post">
+                                            <select name="dataOrmawaStatus" id="">
+                                                <?php foreach ($status as $s) :
+                                                    if ($u['id_is_verified'] == $s['id']): ?>
+                                                    <option value="<?= $s['id']; ?>" selected="<?= "selected"; ?>"> 
+                                                        <?= $s['name']; ?>
+                                                    <?php endif; ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </form>
                                     </td>
                                 </tr>
                             <?php $x++;
@@ -45,9 +56,7 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-
             <?php endforeach; ?>
-
         </div>
     </div>
 </div>

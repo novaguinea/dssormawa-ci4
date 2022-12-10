@@ -62,6 +62,7 @@ class DataOrmawa extends BaseController
 
     public function inputData()
     {
+        $x = $this->request->getPost('inputDataScoring');
         $input = $this->validate([
             'inputDataSupportingFile' => [
                 'uploaded[inputDataSupportingFile]',
@@ -93,15 +94,20 @@ class DataOrmawa extends BaseController
                 'criterion_id' => $id,
                 'title' => $this->request->getPost('inputDataTitle'),
                 'description' => $this->request->getPost('inputDataDescription'),
-                'scoring_id' => (int)($this->request->getPost('inputDataScoring')),
+                'score' => $x,
                 'file' => $files
             ];
-
+            
             $this->dataOrmawaModel->addData($data);
-
+            
             return redirect()->to("ormawa/category/criterion/$id");
         }
 
+    }
+
+    public function updateStatus()
+    {
+        
     }
 
     public function viewPDF()

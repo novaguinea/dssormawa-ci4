@@ -8,6 +8,7 @@ use App\Models\CategoryModel;
 use App\Models\CriterionModel;
 use App\Models\ScoringModel;
 use App\Models\VariableModel;
+use App\Models\VerificationStatusModel;
 
 use CodeIgniter\Files\File;
 
@@ -25,6 +26,7 @@ class Data extends BaseController
         $this->variableModel = new VariableModel();
         $this->criterionModel = new CriterionModel();
         $this->scoringModel = new ScoringModel();
+        $this->verificationStatusModel = new VerificationStatusModel();
     }
 
     public function index()
@@ -60,6 +62,7 @@ class Data extends BaseController
             'users' => $this->userModel->getUsers(),
             'category' => $this->categoryModel->getCategories(),
             'criterion' => $this->criterionModel->getCriterionByCategory($idCat),
+            'status' => $this->verificationStatusModel->getAllData(),
             'data' => $this->dataOrmawaModel->getAllDataByOrmawa(1)
             //$this->dataOrmawaModel->getAllDataByOrmawa($idOrmawa)
         ];
@@ -164,6 +167,8 @@ class Data extends BaseController
                 }
             }
          }
+
+        dd($ormawaCalculatedData);
         
         return $ormawaCalculatedData;
     }
@@ -267,8 +272,7 @@ class Data extends BaseController
         {
             if($d['criterion_id'] == $idCriterion)
             {
-                $scoring = $this->scoringModel->getScoringById($d['scoring_id']);
-                $dataCount = $dataCount +  (int)($scoring['score']);
+                $dataCount = $dataCount +  (int)($d['score']);
             }
         }        
 

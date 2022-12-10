@@ -14,7 +14,7 @@ class DataOrmawaModel extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['ormawa_id', 'criterion_id', 'title', 'description', 'scoring_indicator', 'file'];
+    protected $allowedFields = ['ormawa_id', 'criterion_id', 'title', 'description', 'score', 'file'];
 
     protected $useTimestamps = true;
 

@@ -40,19 +40,17 @@
                     <div class="mb-3 row">
                         <label for="inputDataScoring" class="col-sm-2 col-form-label">Tingkatan</label>
                         <div class="form-check col-sm-10">
-                            <?php //aku cuma mau ngerjain TA tenang, tempat enak, ga diganggu. weeei :D
-                            $i = 0;
-                            foreach ($scoring as $u) :
-                                // dd($scoring['id']); 
-                            ?>
-                                <input class="form-check-input" type="radio" name="inputDataScoring" id="inputDataScoring" value="<?= (int)$scoring[$i]['id']; ?>" >
-                                <label class="form-check-label mb-2" for="inputDataScoring">
-                                    <?= $scoring[$i]['description']; ?>
-                                </label>
-                                <?php var_dump($scoring[$i]['id']); ?>
-                                <br>
-                                <?php $i++; ?>
-                            <?php endforeach; ?>
+                            <select name="inputDataScoring" id="inputDataScoring">
+                                <option value="">---</option>
+                                <?php
+                                $i = 0;
+                                foreach ($scoring as $u) :
+                                    // dd($scoring['id']); 
+                                    ?>
+                                    <option value="<?= $u['score']; ?>"><?= $scoring[$i]['description']; ?></option>
+                                    <?php $i++; ?>
+                                    <?php endforeach; ?>
+                                </select>
                         </div>
                     </div>
                     <div class="mb-3 row">
