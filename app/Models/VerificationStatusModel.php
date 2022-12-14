@@ -25,4 +25,9 @@ class VerificationStatusModel extends Model
     {
         return $this->findAll();
     }
+
+    public function updateVerification($id, $data)
+    {
+        return $this->update($id, $data);
+    }
 }

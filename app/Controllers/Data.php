@@ -70,6 +70,24 @@ class Data extends BaseController
         return view('pages/data/data_criterion_user', $data);
     }
 
+    public function updateStatus()
+    {
+        $id = $this->request->getPost('idForDataOrmawaStatus');
+        $allData = $this->dataOrmawaModel->getDataById($id);
+        
+        $data = [
+            'id' => $this->request->getPost('idForDataOrmawaStatus'),
+            'id_is_verified' => $this->request->getPost('dataOrmawaStatus'),
+            'criterion' => $this->criterionModel->getCriterionById($allData['criterion_id']),
+            'data' => $allData
+        ];
+        // dd($data);
+        //idForDataOrmawaStatus
+        $this->dataOrmawaModel->updateVerification($data);
+        // dd($x)
+        return redirect()->to('data/detail/' . $allData['criterion_id'] . '/' . $id);
+    }
+
     public function viewDetailData($idCriterion, $idData)
     {
         $dataormawa = $this->dataOrmawaModel->getDataById($idData);
@@ -80,7 +98,8 @@ class Data extends BaseController
             'category' => $this->categoryModel->getCategories(),
             'criterion' => $this->criterionModel->getCriterionById($idCriterion),
             'data' => $dataormawa,
-            'scoring' => $this->scoringModel->getScoringById($dataormawa['scoring_id'])
+            'status' => $this->verificationStatusModel->getAllData(),
+            'scoring' => $this->scoringModel->getScoringById($dataormawa['score'])
             //$this->dataOrmawaModel->getAllDataByOrmawa($idOrmawa)
         ];
 

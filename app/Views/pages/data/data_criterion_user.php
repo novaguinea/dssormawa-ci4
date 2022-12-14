@@ -21,6 +21,7 @@
                             <th scope="col">Judul</th>
                             <th scope="col">Deskripsi</th>
                             <th scope="col">Tingkat</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -34,20 +35,14 @@
                                     <th scope="row"><?= $x; ?></th>
                                     <td><?= $u['title']; ?></td>
                                     <td><?= $u['description']; ?></td>
-                                    <td><?= $u['score']; ?></td>
+                                    <td><?= $u['scope']; ?></td>
+                                    <?php foreach($status as $s) {
+                                        if($s['id'] == $u['id_is_verified']) {
+                                            echo '<td>' . $s['name'] . '</td>';
+                                        }
+                                    } ?>
                                     <td>
                                         <a class="btn btn-success" href="/data/detail/<?= $u['criterion_id']; ?>/<?= $u['id']; ?>">Detail</a>
-                                        <form action="" method="post">
-                                            <select name="dataOrmawaStatus" id="">
-                                                <?php foreach ($status as $s) :
-                                                    if ($u['id_is_verified'] == $s['id']): ?>
-                                                    <option value="<?= $s['id']; ?>" selected="<?= "selected"; ?>"> 
-                                                        <?= $s['name']; ?>
-                                                    <?php endif; ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </form>
                                     </td>
                                 </tr>
                             <?php $x++;

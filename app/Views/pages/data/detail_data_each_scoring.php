@@ -12,6 +12,9 @@
         width: 300px !important;
         height: 200px !important;
     } */
+    tr {
+        height: 50px;
+    }
 </style>
 
 <div class="container">
@@ -35,27 +38,38 @@
                 <tr class="spaceUnder">
                     <th class="col-4">Tingkat</th>
                     <td class="col-2">:</td>
-                    <td><?= $scoring[0]['description']; ?></td>
+                    <td><?= $data['scope']; ?></td>
                 </tr>
                 <tr>
                     <th class="col-4">Status</th>
                     <td class="col-2">:</td>
                     <td>
                         <div class="dropdown dropdown-verification" style="height: 50%;">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown button
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
+                            <form action="/data/updateStatusData" id="updateStatus" method="post" onchange="">
+                                <input name="idForDataOrmawaStatus" type="hidden" value="<?= $data['id']; ?>">
+                                <select name="dataOrmawaStatus" id="" onchange="this.form.submit()">
+                                    <?php foreach ($status as $s) :
+                                        if ($data['id_is_verified'] == $s['id']) : ?>
+                                            <option value="<?= $s['id']; ?>" selected="<?= "selected"; ?>">
+                                                <?= $s['name']; ?>
+                                            </option>
+                                        <?php else : ?>
+                                            <option value="<?= $s['id']; ?>">
+                                                <?= $s['name']; ?>
+                                            </option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                                <script>
+                                    // var oldData = document.getElementsByName('dataOrmawaStatus');
+                                </script>
+                            </form>
                         </div>
                     </td>
                 </tr>
             </table>
             <!-- showing PDF -->
-
+            <h2>ini buat pdf</h2>
         </div>
     </div>
 </div>

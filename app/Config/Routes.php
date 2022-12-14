@@ -68,10 +68,10 @@ $routes->get('/data/dump', 'Data::dump');
 $routes->get('/data/dump/(:segment)', 'Data::normalizationPerCri/$1');
 
 $routes->get('/data', 'Data::index');
+$routes->post('/data/updateStatusData', 'Data::updateStatus');
 $routes->get('/data/(:segment)', 'Data::detailOrmawa/$1');
 $routes->get('/data/detail/(:segment)', 'Data::detailDataCriterion/$1');
 $routes->get('/data/detail/(:segment)/(:segment)', 'Data::viewDetailData/$1/$2');
-
 
 /**
  * 

@@ -14,7 +14,7 @@ class DataOrmawaModel extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['ormawa_id', 'criterion_id', 'title', 'description', 'score', 'file'];
+    protected $allowedFields = ['ormawa_id', 'criterion_id', 'title', 'description', 'score', 'file', 'scope', 'id_is_verified'];
 
     protected $useTimestamps = true;
 
@@ -60,6 +60,11 @@ class DataOrmawaModel extends Model
     public function deleteData($id)
     {
         return $this->where(['id' => $id])->delete();
+    }
+
+    public function updateVerification($data) //$data must be array associative
+    {
+        return $this->update($data['id'], $data);
     }
     
 }

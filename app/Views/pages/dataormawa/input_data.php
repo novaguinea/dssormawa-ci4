@@ -41,16 +41,16 @@
                         <label for="inputDataScoring" class="col-sm-2 col-form-label">Tingkatan</label>
                         <div class="form-check col-sm-10">
                             <select name="inputDataScoring" id="inputDataScoring">
-                                <option value="">---</option>
+                                <option value="" selected="selected">---</option>
                                 <?php
                                 $i = 0;
                                 foreach ($scoring as $u) :
                                     // dd($scoring['id']); 
-                                    ?>
+                                ?>
                                     <option value="<?= $u['score']; ?>"><?= $scoring[$i]['description']; ?></option>
                                     <?php $i++; ?>
-                                    <?php endforeach; ?>
-                                </select>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -102,12 +102,11 @@
                                 <th scope="row"><?= $x; ?></th>
                                 <td><?= $u['title']; ?></td>
                                 <td><?= $u['description'] ?></td>
-                                <td><?= $u['scoring_id'] ?></td>
+                                <td><?= $u['score'] ?></td>
                                 <td><?= $u['file'] ?></td>
                                 <td>
                                     <a class="btn btn-success" href="/rules/detail/<?= $u['id']; ?>">Detail</a>
                                     <!-- <a class="btn btn-danger" href="rules/deleteCategory/<?= $u['id']; ?>">Delete</a> -->
-
                                 </td>
                             </tr>
                         <?php $x++;
@@ -125,6 +124,31 @@
 
     </div>
 </div>
+
+<script>
+    // fetch('https://api.cloudinary.com/v1_1/dbspwrvtg/image/upload')
+    //     .then((response) => response.json())
+    //     .then((data) => console.log(data));
+
+        let data = {
+            "file": document.getElementById("inputDataSupportingFile").value
+        }
+
+        fetch("https://api.cloudinary.com/v1_1/dbspwrvtg/image/upload", {
+            method: "POST",
+            // headers: headers,
+            body: JSON.stringify(data)
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data)
+        });
+    
+        // document.getElementsByName("").value = 
+
+</script>
 
 <!--content end here-->
 <?= $this->endSection(); ?>

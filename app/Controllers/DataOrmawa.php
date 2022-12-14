@@ -95,6 +95,7 @@ class DataOrmawa extends BaseController
                 'title' => $this->request->getPost('inputDataTitle'),
                 'description' => $this->request->getPost('inputDataDescription'),
                 'score' => $x,
+                'scope' => $this->request->getPost('inputDataScoringDesc'),
                 'file' => $files
             ];
             
@@ -103,11 +104,6 @@ class DataOrmawa extends BaseController
             return redirect()->to("ormawa/category/criterion/$id");
         }
 
-    }
-
-    public function updateStatus()
-    {
-        
     }
 
     public function viewPDF()
