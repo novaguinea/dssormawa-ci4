@@ -153,7 +153,7 @@
         files = e.target.inputDataSupportingFile;
     });
 
-    document.getElementById("submitNewData").addEventListener("click", function() {
+    document.getElementById("submitNewData").addEventListener("submit", function() {
         var storageRef = firebase.storage().ref(files[0].name);
         storageRef.put(files[0]);
         console.log(files);
