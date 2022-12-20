@@ -2,6 +2,10 @@
 
 namespace App\Controllers;
 use App\Models\UserModel;
+use App\Models\CategoryModel;
+use App\Models\CriterionModel;
+use App\Models\ScoringModel;
+use App\Models\VariableModel;
 
 class Users extends BaseController
 {
@@ -9,6 +13,10 @@ class Users extends BaseController
     public function __construct()
     {
         $this->userModel = new UserModel();
+        $this->categoryModel = new CategoryModel();
+        $this->variableModel = new VariableModel();
+        $this->criterionModel = new CriterionModel();
+        $this->scoringModel = new ScoringModel();
     }
 
     public function index() //showing all account in table
@@ -39,6 +47,37 @@ class Users extends BaseController
         ];
 
         return redirect()->to('/users');
+    }
+
+    public function login()
+    {
+        $category = $this->categoryModel->getCategories();
+        $data = [
+            'title' => 'Home',
+            'username' => $this->request->getPost("inputUsernameLogin"),
+            'password' => $this->request->getPost("inputPwdLogin"),
+            'category' => $category
+        ];
+
+        // dd($data);
+
+        $valid = $this->userModel->getUserByUsername($data['username']);
+
+        if(!$valid)
+        {
+            return redirect()->to('/login');
+        } else 
+        {
+            if($data['password'] != $valid['password'])
+            {
+                return redirect()->to('/login');
+            }
+        }
+
+        session()->set($valid);
+
+        return redirect()->to('/ormawa/category');
+        
     }
 
     // public function detail($id)

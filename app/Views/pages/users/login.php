@@ -1,15 +1,58 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<div class="container">
-    <div class="rows">
-        <div class="col">
-            <h1 class="text-center mt-5">Welcome to DSS ORMAWA System - New!</h1>
 
-            <p class="text-justify mt-5">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </p>
+<style>
+    html {
+        background-color: hsl(0, 0%, 96%);
+    }
+</style>
+
+<!-- Section: Design Block -->
+<section class="">
+    <!-- Jumbotron -->
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+        <div class="container">
+            <div class="row gx-lg-5 align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h1 class="my-5 display-3 fw-bold ls-tight">
+                        SISPEMAWA <br />
+                        <span class="text-warning">UPNVJ</span>
+                    </h1>
+                    <p style="color: hsl(217, 10%, 50.8%)">
+                        Persiapkan ORMAWA-mu untuk menjadi yang terbaik di <br> Universitas Pembangunan Nasional Veteran Jakarta!
+                    </p>
+                </div>
+
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card">
+                        <div class="card-body py-5 px-md-5">
+                            <form action="/login/validate" method="post">
+                                <?= csrf_field(); //only can be input here, prohibited input data outside of this form 
+                                ?>
+                                <!-- Email input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example3">Username</label>
+                                    <input type="text" id="inputUsernameLogin" name="inputUsernameLogin" class="form-control" />
+                                </div>
+
+                                <!-- Password input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form3Example4">Password</label>
+                                    <input type="password" id="inputPwdLogin" name="inputPwdLogin" class="form-control" />
+                                </div>
+
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-primary btn-block mb-4" id="submitLogin">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->
+
 <?= $this->endSection(); ?>

@@ -15,11 +15,10 @@ class Pages extends BaseController
     {
 
         $data = [
-            'title' => 'Login First!'
+            'title' => 'Login'
         ];
 
-        return view('pages/users', $data);
+        return view('pages/users/login', $data);
     }
-
     
 }

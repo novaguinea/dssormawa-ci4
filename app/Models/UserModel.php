@@ -36,6 +36,11 @@ class UserModel extends Model
         return $this->where(['id' => $id])->first();
     }
 
+    public function getUserByUsername($username)
+    {
+        return $this->where(['username' => $username])->first();
+    }
+
     public function deleteUser($id)
     {
         return $this->where(['id' => $id])->delete();

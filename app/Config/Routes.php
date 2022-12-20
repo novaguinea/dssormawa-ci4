@@ -38,16 +38,17 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 // $routes->get('/', 'Home::index');
 $routes->get('/', 'Pages::index');
-$routes->get('/login', 'Pages::login');
 
 //routes for users configuration
+$routes->get('/login', 'Pages::login');
+$routes->post('/login/validate', 'Users::login');
 $routes->get('/users', 'Users::index');
 $routes->get('/users/add', 'Users::add');
 $routes->get('/users/delete/(:segment)', 'Users::delete/$1');
 $routes->get('/users/(:segment)', 'Users::detail/$1');
 
 $routes->post('/users/saveUser', 'Users::saveUser');
-
+    
 //routes for rules
 $routes->get('/rules', 'Rules::index');
 $routes->get('/rules/detail/(:segment)', 'Rules::detailCategory/$1'); //detail category

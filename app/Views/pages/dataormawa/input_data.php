@@ -10,7 +10,7 @@
         <div class="col-8">
         </div>
 
-        <form action="/ormawa/category/criterion/saveData" method="post" enctype="multipart/form-data">
+        <form action="/ormawa/category/criterion/saveData" method="post" enctype="multipart/form-data" onclick="upload()">
 
             <?= csrf_field(); //only can be input here, prohibited input data outside of this form 
             // dd($category);
@@ -63,7 +63,7 @@
                     <input type="hidden" id="hiddenCategoryId" name="hiddenCriterionId" value="<?= $criterion['id']; ?>">
                     <div class="mt-2 mb-3 row">
                         <div class="col-sm-3">
-                            <button type="submit" class="form-control btn btn-success" id="submitNewCriterion">
+                            <button type="submit" class="form-control btn btn-success" id="submitNewData">
                                 Save
                             </button>
                         </div>
@@ -117,7 +117,7 @@
                 </tbody>
             </table>
 
-            <iframe src="writable\uploads1669141597_e8cdc48d0742cbec1b07.pdf\AyoPulih - remissie. - APPETIZER HACKATHON.pdf'" width="100%" height="300" style="border:1px solid black;">
+            <!-- <iframe src="writable\uploads1669141597_e8cdc48d0742cbec1b07.pdf\AyoPulih - remissie. - APPETIZER HACKATHON.pdf'" width="100%" height="300" style="border:1px solid black;"> -->
             </iframe>
 
         </div>
@@ -125,29 +125,80 @@
     </div>
 </div>
 
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-storage.js"></script>
+
 <script>
-    // fetch('https://api.cloudinary.com/v1_1/dbspwrvtg/image/upload')
-    //     .then((response) => response.json())
-    //     .then((data) => console.log(data));
+    import firebase from "firebase/app";
+    import "firebase/storage";
 
-        let data = {
-            "file": document.getElementById("inputDataSupportingFile").value
-        }
+    const firebaseConfig = {
+        apiKey: "AIzaSyD89hwK6Tvp5MUaTOfORoWaiqn2rdmdq7A",
+        authDomain: "dss-ormawa-upnvj.firebaseapp.com",
+        projectId: "dss-ormawa-upnvj",
+        storageBucket: "dss-ormawa-upnvj.appspot.com",
+        messagingSenderId: "481706310378",
+        appId: "1:481706310378:web:6734c49cdc3958c21e7593"
+    };
 
-        fetch("https://api.cloudinary.com/v1_1/dbspwrvtg/image/upload", {
-            method: "POST",
-            // headers: headers,
-            body: JSON.stringify(data)
-        })
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            console.log(data)
-        });
-    
-        // document.getElementsByName("").value = 
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
 
+    var files = [];
+
+    document.getElementById("inputDataSupportingFile").addEventListener("change", function(e) {
+        files = e.target.inputDataSupportingFile;
+    });
+
+    document.getElementById("submitNewData").addEventListener("click", function() {
+        var storageRef = firebase.storage().ref(files[0].name);
+        storageRef.put(files[0]);
+        console.log(files);
+        console.log("halo");
+    })
+</script>
+
+<script>
+    // document.getElementById("submitNewData").addEventListener("click", function() {
+    //     //checks if files are selected
+    //     if (files.length != 0) {
+
+    //         //Loops through all the selected files
+    //         for (let i = 0; i < files.length; i++) {
+
+    //             //create a storage reference
+    //             var storage = firebase.storage().ref(files[i].name);
+
+    //             //upload file
+    //             var upload = storage.put(files[i]);
+
+    //             //update progress bar
+    //             upload.on(
+    //                 "state_changed",
+    //                 function progress(snapshot) {
+    //                     var percentage =
+    //                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //                     document.getElementById("progress").value = percentage;
+    //                 },
+
+    //                 function error() {
+    //                     alert("error uploading file");
+    //                 },
+
+    //                 function complete() {
+    //                     document.getElementById(
+    //                         "uploading"
+    //                     ).innerHTML += `${files[i].name} upoaded <br />`;
+    //                 }
+    //             );
+    //         }
+    //     } else {
+    //         alert("No file chosen");
+    //     }
+    // });
 </script>
 
 <!--content end here-->

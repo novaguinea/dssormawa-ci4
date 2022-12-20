@@ -22,7 +22,6 @@
         <div class="col">
             <div class="row mt-5 mb-5">
                 <h2 class="col-sm-5 col-md-6"><?= $criterion['criterion_name']; ?></h2>
-
             </div>
             <table cellspacing="2">
                 <tr>
