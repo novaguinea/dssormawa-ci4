@@ -187,7 +187,7 @@ class Data extends BaseController
             }
          }
 
-        dd($ormawaCalculatedData);
+        // dd($ormawaCalculatedData);
         
         return $ormawaCalculatedData;
     }

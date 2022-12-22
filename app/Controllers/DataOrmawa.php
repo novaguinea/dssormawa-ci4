@@ -63,29 +63,11 @@ class DataOrmawa extends BaseController
     public function inputData()
     {
         $x = $this->request->getPost('inputDataScoring');
-        $input = $this->validate([
-            'inputDataSupportingFile' => [
-                'uploaded[inputDataSupportingFile]',
-                'ext_in[inputDataSupportingFile,pdf]',
-                'max_size[inputDataSupportingFile,4096]'
-            ]
-        ]);
 
-        // dd($file = $this->request->getFile('inputDataSupportingFile'));
-
-        if(!$input)
-        {
-            print("The file is invalid");
-        } else
-        {
-
-            $file = $this->request->getFile('inputDataSupportingFile');
+            $file = $this->request->getPost('fileURL');
             // $fileName = $file->getRandomName();
-            $file->move(WRITEPATH . 'uploads');
 
             $id = $this->request->getPost('hiddenCriterionId');
-
-            $files = $this->request->getFiles();
 
             // dd($this->request->getPost('inputDataScoring'));
 
@@ -96,7 +78,7 @@ class DataOrmawa extends BaseController
                 'description' => $this->request->getPost('inputDataDescription'),
                 'score' => $x,
                 'scope' => $this->request->getPost('inputDataScoringDesc'),
-                'file' => $files
+                'file' => $file
             ];
             
             $this->dataOrmawaModel->addData($data);
@@ -106,9 +88,4 @@ class DataOrmawa extends BaseController
 
     }
 
-    public function viewPDF()
-    {
-        return redirect()->to("");
-    }
-    
-}
+

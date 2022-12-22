@@ -10,7 +10,7 @@
         <div class="col-8">
         </div>
 
-        <form action="/ormawa/category/criterion/saveData" method="post" enctype="multipart/form-data" onclick="upload()">
+        <form action="/ormawa/category/criterion/saveData" method="post" enctype="multipart/form-data">
 
             <?= csrf_field(); //only can be input here, prohibited input data outside of this form 
             // dd($category);
@@ -54,13 +54,14 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <div class="input-group mb-3 col-sm-10">
-                            <label for="inputDataSupportingFile" class="col-sm-2 col-form-label">File Pendukung </label>
-                            <input type="file" class="form-control" id="inputDataSupportingFile" name="inputDataSupportingFile">
-                            <!-- <label class="input-group-text btn btn-primary" for="inputDataSupportingFile">Upload</label> -->
+                        <div class="input-group mb-3">
+                            <label class="col-sm-2 col-form-label" id="" for="">File Pendukung</label>
+                            <input type="file" class="form-control" id="inputDataSupportingFile">
+                            <button type="button" id="uploadFile" name="uploadFile">Upload</button>
                         </div>
                     </div>
                     <input type="hidden" id="hiddenCategoryId" name="hiddenCriterionId" value="<?= $criterion['id']; ?>">
+                    <input type="hidden" id="fileURL" name="fileURL" value="">
                     <div class="mt-2 mb-3 row">
                         <div class="col-sm-3">
                             <button type="submit" class="form-control btn btn-success" id="submitNewData">
@@ -125,15 +126,10 @@
     </div>
 </div>
 
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use -->
-<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-storage.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
 <script>
-    import firebase from "firebase/app";
-    import "firebase/storage";
+    // tengkyu acil!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // SEMANGAT NISNOP🐖🐖🐖🐖❤️❤️❤️!!!!!!!!!!!!!!!!!!!!!!!
 
     const firebaseConfig = {
         apiKey: "AIzaSyD89hwK6Tvp5MUaTOfORoWaiqn2rdmdq7A",
@@ -146,59 +142,30 @@
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    console.log("halo");
+
 
     var files = [];
 
-    document.getElementById("inputDataSupportingFile").addEventListener("change", function(e) {
-        files = e.target.inputDataSupportingFile;
+    document.getElementById("inputDataSupportingFile").addEventListener("change", (e) => {
+        console.log(e.target);
+        files = e.target.files;
+        console.log(files);
     });
 
-    document.getElementById("submitNewData").addEventListener("submit", function() {
-        var storageRef = firebase.storage().ref(files[0].name);
+    document.getElementById("uploadFile").addEventListener("click", function() {
+        var storage = firebase.storage();
+        var storageRef = storage.ref(files[0].name);
         storageRef.put(files[0]);
         console.log(files);
-        console.log("halo");
-    })
-</script>
 
-<script>
-    // document.getElementById("submitNewData").addEventListener("click", function() {
-    //     //checks if files are selected
-    //     if (files.length != 0) {
+        // get the URL of the uploaded file
+        storageRef.getDownloadURL().then(url => {
+            console.log(url);
+            document.getElementById("fileURL").value = url;
+        });
 
-    //         //Loops through all the selected files
-    //         for (let i = 0; i < files.length; i++) {
-
-    //             //create a storage reference
-    //             var storage = firebase.storage().ref(files[i].name);
-
-    //             //upload file
-    //             var upload = storage.put(files[i]);
-
-    //             //update progress bar
-    //             upload.on(
-    //                 "state_changed",
-    //                 function progress(snapshot) {
-    //                     var percentage =
-    //                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //                     document.getElementById("progress").value = percentage;
-    //                 },
-
-    //                 function error() {
-    //                     alert("error uploading file");
-    //                 },
-
-    //                 function complete() {
-    //                     document.getElementById(
-    //                         "uploading"
-    //                     ).innerHTML += `${files[i].name} upoaded <br />`;
-    //                 }
-    //             );
-    //         }
-    //     } else {
-    //         alert("No file chosen");
-    //     }
-    // });
+    });
 </script>
 
 <!--content end here-->

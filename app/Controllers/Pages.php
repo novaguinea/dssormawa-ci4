@@ -20,5 +20,13 @@ class Pages extends BaseController
 
         return view('pages/users/login', $data);
     }
+
+    public function dump()
+    {
+        $data = [
+            'title' => 'coba hehe'
+        ];
+        return view('pages/dump', $data);
+    }
     
 }

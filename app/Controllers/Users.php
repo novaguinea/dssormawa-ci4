@@ -74,9 +74,15 @@ class Users extends BaseController
             }
         }
 
-        session()->set($valid);
+        $this->session->set_userdata($valid);
 
+        if($valid['is_ormawa'] != null)
+        {
+            return redirect()->to('/ormawa/category');
+        }
+        
         return redirect()->to('/ormawa/category');
+        
         
     }
 
