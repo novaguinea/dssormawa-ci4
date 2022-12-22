@@ -35,13 +35,12 @@
                         <div class="col-sm-10">
                             <textarea class="form-control" id="inputDataDescription" name="inputDataDescription" rows="3"></textarea>
                         </div>
-
                     </div>
                     <div class="mb-3 row">
                         <label for="inputDataScoring" class="col-sm-2 col-form-label">Tingkatan</label>
                         <div class="form-check col-sm-10">
-                            <select name="inputDataScoring" id="inputDataScoring">
-                                <option value="" selected="selected">---</option>
+                            <select class="btn btn-outline-primary" style="font-size: 14px" name="inputDataScoring" id="inputDataScoring">
+                                <option value="" selected="selected">-- Pilih Tingkatan --</option>
                                 <?php
                                 $i = 0;
                                 foreach ($scoring as $u) :
@@ -56,8 +55,8 @@
                     <div class="mb-3 row">
                         <div class="input-group mb-3">
                             <label class="col-sm-2 col-form-label" id="" for="">File Pendukung</label>
-                            <input type="file" class="form-control" id="inputDataSupportingFile">
-                            <button type="button" id="uploadFile" name="uploadFile">Upload</button>
+                            <input type="file" class="form-control " id="inputDataSupportingFile">
+                            <button type="button" class="form-control btn btn-primary col-2" id="uploadFile" name="uploadFile">Upload</button>
                         </div>
                     </div>
                     <input type="hidden" id="hiddenCategoryId" name="hiddenCriterionId" value="<?= $criterion['id']; ?>">
@@ -89,7 +88,6 @@
                         <th scope="col">Deskripsi</th>
                         <th scope="col">Tingkat</th>
                         <th scope="col">Berkas</th>
-                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,11 +102,7 @@
                                 <td><?= $u['title']; ?></td>
                                 <td><?= $u['description'] ?></td>
                                 <td><?= $u['score'] ?></td>
-                                <td><?= $u['file'] ?></td>
-                                <td>
-                                    <a class="btn btn-success" href="/rules/detail/<?= $u['id']; ?>">Detail</a>
-                                    <!-- <a class="btn btn-danger" href="rules/deleteCategory/<?= $u['id']; ?>">Delete</a> -->
-                                </td>
+                                <td> <a class="btn" style="background-color: #FF8976; color:beige" target="_blank" href="<?= $u['file'] ?>">PDF</a></td>
                             </tr>
                         <?php $x++;
                         endif;
