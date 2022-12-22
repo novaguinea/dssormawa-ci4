@@ -1,16 +1,15 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?= $this->include('layout/navbar'); ?>
 
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1 class="mt-3">Daftar User</h1>
+            <h1 class="mt-5">Daftar User</h1>
             <div class="align-end mb-3">
-                <a class="btn btn-primary" href="/users/add">Add Account</a>
+                <a class="mt-3 btn btn-primary" href="/users/add">Tambah Akun</a>
             </div>
-            <table class="table table-dark table-hover">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -43,6 +42,7 @@
             </table>
         </div>
     </div>
+    
 </div>
 
 <?= $this->endSection(); ?>

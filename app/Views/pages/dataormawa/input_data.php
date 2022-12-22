@@ -1,7 +1,6 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?= $this->include('layout/navbar'); ?>
 
 <!--put your content here-->
 
@@ -61,7 +60,7 @@
                     </div>
                     <input type="hidden" id="hiddenCategoryId" name="hiddenCriterionId" value="<?= $criterion['id']; ?>">
                     <input type="hidden" id="fileURL" name="fileURL" value="">
-                    <div class="mt-2 mb-3 row">
+                    <div class="mt-5 mb-3 row">
                         <div class="col-sm-3">
                             <button type="submit" class="form-control btn btn-success" id="submitNewData">
                                 Save
@@ -150,13 +149,14 @@
     document.getElementById("uploadFile").addEventListener("click", function() {
         var storage = firebase.storage();
         var storageRef = storage.ref(files[0].name);
-        storageRef.put(files[0]);
+        var upload = storageRef.put(files[0]);
         console.log(files);
 
         // get the URL of the uploaded file
         storageRef.getDownloadURL().then(url => {
             console.log(url);
             document.getElementById("fileURL").value = url;
+            
         });
 
     });

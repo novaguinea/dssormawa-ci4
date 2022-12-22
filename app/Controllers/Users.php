@@ -17,6 +17,8 @@ class Users extends BaseController
         $this->variableModel = new VariableModel();
         $this->criterionModel = new CriterionModel();
         $this->scoringModel = new ScoringModel();
+        $this->session = \Config\Services::session();
+        $this->session->start();
     }
 
     public function index() //showing all account in table
@@ -74,14 +76,14 @@ class Users extends BaseController
             }
         }
 
-        $this->session->set_userdata($valid);
+        $this->session->set($valid);
 
         if($valid['is_ormawa'] != null)
         {
             return redirect()->to('/ormawa/category');
         }
         
-        return redirect()->to('/ormawa/category');
+        return redirect()->to('/users');
         
         
     }

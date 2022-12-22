@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="mt-3 mb-3 row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <button type="submit" class="form-control btn btn-primary" id="submitUserData" onclick="clearform()">
                                 Tambah Kategori
                             </button>

@@ -759,10 +759,7 @@ select.form-control:not([size]):not([multiple]) {
 .card .card-header {
   border-bottom-color: #f9f9f9;
   line-height: 30px;
-<<<<<<< HEAD
-=======
   -ms-grid-row-align: center;
->>>>>>> 732ebe8 (chore: cleanup css)
   align-self: center;
   width: 100%;
   min-height: 70px;
@@ -2585,9 +2582,9 @@ blockquote .blockquote-footer {
   height: 210px;
 }
 
-.sidebar-gone-show {
+/* .sidebar-gone-show {
   display: none !important;
-}
+} */
 
 pre {
   border-radius: 3px;
@@ -3050,9 +3047,9 @@ pre {
   transition: all 0.5s;
 }
 
-body.sidebar-gone .main-sidebar {
+/* body.sidebar-gone .main-sidebar {
   left: -250px;
-}
+} */
 
 body.sidebar-mini .hide-sidebar-mini {
   display: none !important;

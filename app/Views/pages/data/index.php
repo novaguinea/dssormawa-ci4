@@ -1,7 +1,7 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
 <?= $this->include('layout/navbar'); ?>
-<div class="container">
+<div id="app" class="container">
     <div class="row">
         <div class="col">
             <h1 class="mt-4 mb-5">Data Organisasi Kemahasiswaan</h1>

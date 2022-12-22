@@ -1,27 +1,25 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?= $this->include('layout/navbar'); ?>
+<div class="container" style="margin-left: 250px;">
+        <div class="row">
+            <div class="col">
+                <h1 class="mt-4 mb-5">Data Organisasi Kemahasiswaan</h1>
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h1 class="mt-4 mb-5">Data Organisasi Kemahasiswaan</h1>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Organisasi Kemahasiswaan</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Organisasi Kemahasiswaan</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <?php
-                    $x = 1;
-                    foreach ($category as $u) :
-                    ?>
+                        <?php
+                        $x = 1;
+                        foreach ($category as $u) :
+                        ?>
                             <tr>
                                 <th scope="row"><?= $x; ?></th>
                                 <td><?= $u['category_name']; ?></td>
@@ -30,14 +28,15 @@
                                     <a class="btn btn-success" href="/data/detail/<?= $u['id']; ?>">Detail</a>
                                 </td>
                             </tr>
-                        <?php $x++;
-                        ?>
+                            <?php $x++;
+                            ?>
 
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+    
 </div>
-
 <?= $this->endSection(); ?>

@@ -1,35 +1,12 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?= $this->include('layout/navbar'); ?>
 
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1 class="mt-3">Daftar Kategori</h1>
-
-            <form class="mb-5" action="/rules/addCategory" method="post">
-
-                <?= csrf_field(); //only can be input here, prohibited input data outside of this form 
-                ?>
-
-                <div class="mt-5">
-                    <div class="mb-3 row">
-                        <label for="inputCategory" class="col-sm-2 col-form-label">Nama Kategori</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputCategory" name="inputCategory">
-                        </div>
-                    </div>
-
-                    <div class="mt-3 mb-3 row">
-                        <div class="col-sm-2">
-                            <button type="submit" class="form-control btn btn-primary" id="submitUserData" onclick="clearform()">
-                                Tambah Kategori
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            <h1 class="mt-5 mb-3">Kategori Penilaian</h1>
+            <p class="mb-4">Tiap kategori memiliki kriteria penilaian tersendiri yang perlu diisi sebagai syarat penilaian ORMAWA terbaik!🥳</p>
 
             <table class="table table-hover">
                 <thead>
