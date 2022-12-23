@@ -7,6 +7,8 @@ use App\Models\CategoryModel;
 use App\Models\CriterionModel;
 use App\Models\ScoringModel;
 use App\Models\VariableModel;
+use App\Models\VerificationStatusModel;
+
 
 use CodeIgniter\Files\File;
 
@@ -20,6 +22,7 @@ class DataOrmawa extends BaseController
         $this->variableModel = new VariableModel();
         $this->criterionModel = new CriterionModel();
         $this->scoringModel = new ScoringModel();
+        $this->verificationStatusModel = new VerificationStatusModel();
     }
 
     public function listOfCategory()
@@ -53,6 +56,7 @@ class DataOrmawa extends BaseController
             'criterion' => $this->criterionModel->getCriterionById($id),
             'scoring' => $this->scoringModel->getScoringByCriterion($id),
             'data_nilai' => $this->dataOrmawaModel->getDataByCriterion($id),
+            'status' => $this->verificationStatusModel->getAllData(),
             'ormawa_id' => 2,
             'files' => $file
         ];

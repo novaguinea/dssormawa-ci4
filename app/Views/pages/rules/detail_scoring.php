@@ -21,23 +21,23 @@
 
             <div class="mt-3">
                 <div class="mb-3 row">
-                    <label for="inputUsername" class="col-sm-2 col-form-label">Nama Kategori</label>
-                    <div class="col-sm-10">
+                    <label for="inputUsername" class="col-sm-2 col-form-label">Nama Kriteria</label>
+                    <div class="col-sm-8">
                         <input type="text" class="form-control" id="inputUsername" name="inputUsername" value="<?= $criterion['criterion_name']; ?>">
                     </div>
                 </div>
-                <div class="mt-5 mb-3 row">
+                <div class="mt-3 mb-3 row">
                     <div class="col-sm-2">
-                        <button type="submit" class="form-control btn btn-success" id="submitUserData">
-                            Save
+                        <button type="submit" class="form-control btn btn-warning" id="submitUserData">
+                            Update
                         </button>
                     </div>
                 </div>
             </div>
         </form>
 
-        <div class="align-end mb-3 mt-3">
-            <a class="btn btn-primary" href="/rules/addScoringIndicator/<?= $criterion['id']; ?>">Tambah Indikator</a>
+        <div class="align-end mb-3 mt-4">
+            <a class="btn btn-primary" href="/rules/addScoringIndicator/<?= $criterion['id']; ?>">Tambah Indikator Penilaian</a>
         </div>
 
 
@@ -45,7 +45,7 @@
         if (!empty($scoring)) :
         ?>
 
-            <table class="table table-dark table-hover">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

@@ -1,7 +1,7 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<div class="container" style="margin-left: 250px;">
+<div class="container">
         <div class="row">
             <div class="col">
                 <h1 class="mt-4 mb-5">Data Organisasi Kemahasiswaan</h1>

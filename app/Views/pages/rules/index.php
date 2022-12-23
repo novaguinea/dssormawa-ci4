@@ -15,8 +15,8 @@
 
                 <div class="mt-5">
                     <div class="mb-3 row">
-                        <label for="inputCategory" class="col-sm-2 col-form-label">Nama Kategory</label>
-                        <div class="col-sm-10">
+                        <label for="inputCategory" class="col-sm-2 col-form-label">Nama Kategori</label>
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" id="inputCategory" name="inputCategory">
                         </div>
                     </div>

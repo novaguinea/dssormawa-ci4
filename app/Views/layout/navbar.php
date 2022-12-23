@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <div class="main-sidebar" style="width:250px;">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">

@@ -46,7 +46,7 @@
                         <div class="dropdown dropdown-verification" style="height: 50%;">
                             <form action="/data/updateStatusData" id="updateStatus" method="post" onchange="">
                                 <input name="idForDataOrmawaStatus" type="hidden" value="<?= $data['id']; ?>">
-                                <select name="dataOrmawaStatus" id="" onchange="this.form.submit()">
+                                <select class="btn btn-primary" name="dataOrmawaStatus" id="" onchange="this.form.submit()">
                                     <?php foreach ($status as $s) :
                                         if ($data['id_is_verified'] == $s['id']) : ?>
                                             <option value="<?= $s['id']; ?>" selected="<?= "selected"; ?>">

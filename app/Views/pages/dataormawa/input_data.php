@@ -6,8 +6,6 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-8">
-        </div>
 
         <form action="/ormawa/category/criterion/saveData" method="post" enctype="multipart/form-data">
 
@@ -17,7 +15,7 @@
             // dd($files);
             ?>
 
-            <div class="mt-3">
+            <div class="mt-5">
                 <div class="mb-4 row">
                     <h4 style="color:dimgray"><b style="color:#0E0E0E">Penilaian kriteria:</b> <?= $criterion["criterion_name"]; ?></h4>
                 </div>
@@ -25,19 +23,19 @@
                 <div class="mt-3">
                     <div class="mb-3 row">
                         <label for="inputDataTitle" class="col-sm-2 col-form-label">Judul</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" id="inputDataTitle" name="inputDataTitle" placeholder="Cth: Gemastik XV">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="inputDataDescription" class="col-sm-2 col-form-label">Deskripsi</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-8">
                             <textarea class="form-control" id="inputDataDescription" name="inputDataDescription" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="inputDataScoring" class="col-sm-2 col-form-label">Tingkatan</label>
-                        <div class="form-check col-sm-10">
+                        <div class="form-check col-sm-8">
                             <select class="btn btn-outline-primary" style="font-size: 14px" name="inputDataScoring" id="inputDataScoring">
                                 <option value="" selected="selected">-- Pilih Tingkatan --</option>
                                 <?php
@@ -54,7 +52,7 @@
                     <div class="mb-3 row">
                         <div class="input-group mb-3">
                             <label class="col-sm-2 col-form-label" id="" for="">File Pendukung</label>
-                            <input type="file" class="form-control " id="inputDataSupportingFile">
+                            <input type="file" class="col-sm-6 form-control" id="inputDataSupportingFile">
                             <button type="button" class="form-control btn btn-primary col-2" id="uploadFile" name="uploadFile">Upload</button>
                         </div>
                     </div>
@@ -86,6 +84,7 @@
                         <th scope="col">Judul</th>
                         <th scope="col">Deskripsi</th>
                         <th scope="col">Tingkat</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Berkas</th>
                     </tr>
                 </thead>
@@ -101,6 +100,13 @@
                                 <td><?= $u['title']; ?></td>
                                 <td><?= $u['description'] ?></td>
                                 <td><?= $u['score'] ?></td>
+                                    <?php foreach ($status as $s) :
+                                        if ($u['id_is_verified'] == $s['id']) : ?>
+                                            <td value="<?= $s['id']; ?>">
+                                                <?= $s['name']; ?>
+                                        </td>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
                                 <td> <a class="btn" style="background-color: #FF8976; color:beige" target="_blank" href="<?= $u['file'] ?>">PDF</a></td>
                             </tr>
                         <?php $x++;
@@ -156,7 +162,7 @@
         storageRef.getDownloadURL().then(url => {
             console.log(url);
             document.getElementById("fileURL").value = url;
-            
+
         });
 
     });

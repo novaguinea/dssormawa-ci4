@@ -21,7 +21,7 @@
             <div class="mt-3">
                 <div class="mb-2 row">
                     <label for="inputUsername" class="col-sm-2 col-form-label">Nama Kategori</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-8">
                         <input type="text" class="form-control" id="inputUsername" name="inputUsername" value="<?= $category["category_name"]; ?>">
                     </div>
                 </div>
@@ -39,7 +39,7 @@
             <a class="btn btn-primary" href="/rules/addCriterion/<?= $category['id']; ?>">Tambah Kriteria</a>
         </div>
 
-        <table class="table table-dark table-hover">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>

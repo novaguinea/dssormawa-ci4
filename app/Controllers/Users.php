@@ -84,8 +84,7 @@ class Users extends BaseController
         }
         
         return redirect()->to('/users');
-        
-        
+    
     }
 
     // public function detail($id)
