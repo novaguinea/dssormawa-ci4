@@ -13,7 +13,7 @@ class CriterionModel extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['id_var', 'id_cat', 'criterion_name', 'criterion_weight', 'is_active'];
+    protected $allowedFields = ['id_var', 'id_cat', 'criterion_name', 'criterion_weight', 'description', 'is_active'];
 
     protected $useTimestamps = true;
 

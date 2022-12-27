@@ -1,7 +1,11 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?= $this->include('layout/navbar'); ?>
+<?php if ($role_id == 2) : ?>
+    <?= $this->include('layout/sidebar_admin'); ?>
+<?php else : ?>
+    <?= $this->include('layout/sidebar_ormawa'); ?>
+<?php endif; ?>
 
 <!--put your content here-->
 
@@ -23,16 +27,17 @@
                 <div class="mb-3 row">
                     <label for="inputUsername" class="col-sm-2 col-form-label">Nama Kriteria</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputUsername" name="inputUsername" value="<?= $criterion['criterion_name']; ?>">
+                        <input type="text" class="form-control" id="inputUsername" name="inputUsername" value="<?= $criterion['criterion_name']; ?>" readonly>
                     </div>
                 </div>
-                <div class="mt-3 mb-3 row">
-                    <div class="col-sm-2">
-                        <button type="submit" class="form-control btn btn-warning" id="submitUserData">
-                            Update
-                        </button>
+
+                <div class="mb-3 row">
+                    <label for="inputUsername" class="col-sm-2 col-form-label">Deskripsi Kriteria</label>
+                    <div class="col-sm-8">
+                        <p><?= $criterion['description']; ?></p>
                     </div>
                 </div>
+
             </div>
         </form>
 
@@ -51,7 +56,6 @@
                         <th scope="col">#</th>
                         <th scope="col">Nama Kriteria</th>
                         <th scope="col">Nilai</th>
-                        <th scope="col">Aktif?</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -65,8 +69,6 @@
                             <th scope="row"><?= $x; ?></th>
                             <td><?= $u['description']; ?></td>
                             <td><?= $u['score']; ?></td>
-                            <td> <?php $u['is_active'] ==  1 ? print("Ya") : print("Tidak") ?>
-                            </td>
                             <td>
                                 <a class="btn btn-danger" href="/rules/deleteScoringIndicator/<?= $u['id']; ?>/<?= $criterion['id']; ?>">Delete</a>
 
@@ -80,7 +82,7 @@
 
         <?php
         else :
-            echo ('<div class="mt-3"><h3>Data penilaian masih kosong</h3></div>');
+            echo ('<div class="mt-3"><h3>Data indikator penilaian masih kosong</h3></div>');
 
         endif;
 

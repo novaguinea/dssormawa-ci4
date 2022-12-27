@@ -1,7 +1,12 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?= $this->include('layout/navbar'); ?>
+
+<?php if($role_id == 2): ?>
+<?= $this->include('layout/sidebar_admin'); ?>
+<?php else: ?>
+<?= $this->include('layout/sidebar_ormawa'); ?>
+<?php endif; ?>
 
 <div class="container">
     <div class="row">

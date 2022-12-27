@@ -1,7 +1,11 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?= $this->include('layout/navbar'); ?>
+<?php if ($role_id == 2) : ?>
+    <?= $this->include('layout/sidebar_admin'); ?>
+<?php else : ?>
+    <?= $this->include('layout/sidebar_ormawa'); ?>
+<?php endif; ?>
 
 <!--put your content here-->
 
@@ -21,7 +25,7 @@
                 <div class="mb-3 row">
                     <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputUsername" name="inputUsername">
+                        <input type="text" class="form-control" id="inputUsername" name="inputUsername" pattern="[A-Za-z0-9]+" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}">
                     </div>
                 </div>
                 <div class="mb-3 row">

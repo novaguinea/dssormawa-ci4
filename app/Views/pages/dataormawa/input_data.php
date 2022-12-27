@@ -1,7 +1,11 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-
+<?php if ($role_id == 2) : ?>
+    <?= $this->include('layout/sidebar_admin'); ?>
+<?php else : ?>
+    <?= $this->include('layout/sidebar_ormawa'); ?>
+<?php endif; ?>
 <!--put your content here-->
 
 <div class="container">
@@ -36,7 +40,7 @@
                     <div class="mb-3 row">
                         <label for="inputDataScoring" class="col-sm-2 col-form-label">Tingkatan</label>
                         <div class="form-check col-sm-8">
-                            <select class="btn btn-outline-primary" style="font-size: 14px" name="inputDataScoring" id="inputDataScoring">
+                            <select class="btn btn-outline-primary" style="font-size: 14px;" maxlength="10" name="inputDataScoring" id="inputDataScoring">
                                 <option value="" selected="selected">-- Pilih Tingkatan --</option>
                                 <?php
                                 $i = 0;
@@ -56,6 +60,18 @@
                             <button type="button" class="form-control btn btn-primary col-2" id="uploadFile" name="uploadFile">Upload</button>
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <div class="input-group mb-3">
+                            <label for="" class="col-sm-2 col-form-label">
+                                Catatan indikator
+                            </label>
+                            <p class="col-sm-10">
+
+                                <?= $criterion["description"]; ?>
+                            </p>
+                        </div>
+                    </div>
+
                     <input type="hidden" id="hiddenCategoryId" name="hiddenCriterionId" value="<?= $criterion['id']; ?>">
                     <input type="hidden" id="fileURL" name="fileURL" value="">
                     <div class="mt-5 mb-3 row">
@@ -100,13 +116,13 @@
                                 <td><?= $u['title']; ?></td>
                                 <td><?= $u['description'] ?></td>
                                 <td><?= $u['score'] ?></td>
-                                    <?php foreach ($status as $s) :
-                                        if ($u['id_is_verified'] == $s['id']) : ?>
-                                            <td value="<?= $s['id']; ?>">
-                                                <?= $s['name']; ?>
+                                <?php foreach ($status as $s) :
+                                    if ($u['id_is_verified'] == $s['id']) : ?>
+                                        <td value="<?= $s['id']; ?>">
+                                            <?= $s['name']; ?>
                                         </td>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                                 <td> <a class="btn" style="background-color: #FF8976; color:beige" target="_blank" href="<?= $u['file'] ?>">PDF</a></td>
                             </tr>
                         <?php $x++;
@@ -127,8 +143,8 @@
 
 <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
 <script>
-    // tengkyu acil!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // SEMANGAT NISNOP🐖🐖🐖🐖❤️❤️❤️!!!!!!!!!!!!!!!!!!!!!!!
+    // tengkyu acil!!!!!!!!!!!!!!!!!!!!!!!!!! -> ini karena makasih aja si
+    // SEMANGAT NISNOP🐖🐖🐖🐖❤️❤️❤️!!!!!!!!!!!!!!!!!!!!!!! --> ini di mushola
 
     const firebaseConfig = {
         apiKey: "AIzaSyD89hwK6Tvp5MUaTOfORoWaiqn2rdmdq7A",

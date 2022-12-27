@@ -13,7 +13,7 @@ class UserModel extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['username', 'nama', 'password', 'logo', 'role_id', 'is_ormawa'];
+    protected $allowedFields = ['username', 'nama', 'password', 'logo', 'role_id'];
 
     protected $useTimestamps = true;
 
@@ -28,7 +28,7 @@ class UserModel extends Model
 
     public function getAllOrmawaUsers()
     {
-        return $this->where(['is_ormawa' => 1])->findAll();
+        return $this->where(['role_id' => 1])->findAll();
     }
     
     public function getUserById($id)

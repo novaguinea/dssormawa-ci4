@@ -1,7 +1,12 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
-<?= $this->include('layout/navbar'); ?>
+<?php if ($role_id == 2) : ?>
+    <?= $this->include('layout/sidebar_admin'); ?>
+<?php else : ?>
+    <?= $this->include('layout/sidebar_ormawa'); ?>
+<?php endif; ?>
 <div id="app" class="container">
+
     <div class="row">
         <div class="col">
             <h1 class="mt-4 mb-5">Data Organisasi Kemahasiswaan</h1>
@@ -18,13 +23,13 @@
                     $x = 1;
                     foreach ($users as $u) :
                     ?>
-                            <tr>
-                                <th scope="row"><?= $x; ?></th>
-                                <td><?= $u['nama']; ?></td>
-                                <td>
-                                    <a class="btn btn-success" href="/data/<?= $u['id']; ?>">Detail</a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <th scope="row"><?= $x; ?></th>
+                            <td><?= $u['nama']; ?></td>
+                            <td>
+                                <a class="btn btn-success" href="/data/<?= $u['id']; ?>">Detail</a>
+                            </td>
+                        </tr>
                         <?php $x++;
                         ?>
                     <?php endforeach; ?>
@@ -43,14 +48,14 @@
                         <th scope="col">Skor</th>
                     </tr>
                 </thead>
-                <tbody> 
+                <tbody>
                     <?php
                     $x = 1;
                     foreach ($dataormawa as $do => $do_value) : ?>
                         <tr>
                             <th scope="row"><?= $x; ?></th>
                             <td><?= $do; ?></td>
-                            <td><?=(int)$do_value; ?></td>
+                            <td><?= (int)$do_value; ?></td>
                         </tr>
                         <?php $x++;
                         ?>

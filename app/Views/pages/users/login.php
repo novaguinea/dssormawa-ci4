@@ -48,10 +48,11 @@
                                 <form action="/login/validate" method="post">
                                     <?= csrf_field(); //only can be input here, prohibited input data outside of this form 
                                     ?>
-                                    <!-- Email input -->
+
+                                    <!-- Username input -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example3">Username</label>
-                                        <input type="text" id="inputUsernameLogin" name="inputUsernameLogin" class="form-control" />
+                                        <input type="text" id="inputUsernameLogin" name="inputUsernameLogin" class="form-control" pattern="[A-Za-z0-9]+" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" />
                                     </div>
 
                                     <!-- Password input -->

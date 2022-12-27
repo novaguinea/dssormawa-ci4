@@ -1,7 +1,11 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?= $this->include('layout/navbar'); ?>
+<?php if ($role_id == 2) : ?>
+    <?= $this->include('layout/sidebar_admin'); ?>
+<?php else : ?>
+    <?= $this->include('layout/sidebar_ormawa'); ?>
+<?php endif; ?>
 
 <!--put your content here-->
 
@@ -21,21 +25,17 @@
             <div class="mt-3">
                 <div class="mb-2 row">
                     <label for="inputUsername" class="col-sm-2 col-form-label">Nama Kategori</label>
+
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputUsername" name="inputUsername" value="<?= $category["category_name"]; ?>">
+                        <input type="" class="form-control" id="inputUsername" name="inputUsername" value="<?= $category["category_name"]; ?>" readonly>
                     </div>
-                </div>
-                <div class="mt-3 mb-5 row">
-                    <div class="col-sm-2">
-                        <button type="submit" class="form-control btn btn-warning" id="submitUserData">
-                            Update Nama
-                        </button>
-                    </div>
+
                 </div>
             </div>
+
         </form>
 
-        <div class="align-end mb-3">
+        <div class="align-end mt-5 mb-3">
             <a class="btn btn-primary" href="/rules/addCriterion/<?= $category['id']; ?>">Tambah Kriteria</a>
         </div>
 

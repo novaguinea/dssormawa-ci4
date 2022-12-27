@@ -25,7 +25,8 @@ class Users extends BaseController
     {
         $data = [
             'title' => 'data user',
-            'users' => $this->userModel->getUsers()
+            'users' => $this->userModel->getUsers(),
+            'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/users/index', $data);
@@ -34,7 +35,8 @@ class Users extends BaseController
     public function add()
     {
         $data = [
-            'title' => 'Add New Account'
+            'title' => 'Add New Account',
+            'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/users/add_user', $data);
@@ -43,10 +45,6 @@ class Users extends BaseController
     public function delete($id)
     {
         $this->userModel->deleteUser($id);
-
-        $data = [
-            'title' => 'data user'
-        ];
 
         return redirect()->to('/users');
     }
@@ -78,7 +76,7 @@ class Users extends BaseController
 
         $this->session->set($valid);
 
-        if($valid['is_ormawa'] != null)
+        if($valid['role_id'] == 1)
         {
             return redirect()->to('/ormawa/category');
         }
@@ -109,6 +107,15 @@ class Users extends BaseController
 
         return redirect()->to('/users');
 
+    }
+
+    //sakit perut!!!!
+
+    public function logout()
+    {
+        $this->session->destroy();
+
+        return redirect()->to("/login");
     }
 
 

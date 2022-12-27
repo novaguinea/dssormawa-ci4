@@ -1,7 +1,11 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?= $this->include('layout/navbar'); ?>
+<?php if ($role_id == 2) : ?>
+    <?= $this->include('layout/sidebar_admin'); ?>
+<?php else : ?>
+    <?= $this->include('layout/sidebar_ormawa'); ?>
+<?php endif; ?>
 
 <div class="container">
     <div class="row">
@@ -36,8 +40,8 @@
                                     <td><?= $u['title']; ?></td>
                                     <td><?= $u['description']; ?></td>
                                     <td><?= $u['scope']; ?></td>
-                                    <?php foreach($status as $s) {
-                                        if($s['id'] == $u['id_is_verified']) {
+                                    <?php foreach ($status as $s) {
+                                        if ($s['id'] == $u['id_is_verified']) {
                                             echo '<td>' . $s['name'] . '</td>';
                                         }
                                     } ?>

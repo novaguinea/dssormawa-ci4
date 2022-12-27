@@ -1,7 +1,11 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?= $this->include('layout/navbar'); ?>
+<?php if ($role_id == 2) : ?>
+    <?= $this->include('layout/sidebar_admin'); ?>
+<?php else : ?>
+    <?= $this->include('layout/sidebar_ormawa'); ?>
+<?php endif; ?>
 
 <?php //dd($scoring); 
 
@@ -68,7 +72,7 @@
                 </tr>
             </table>
             <!-- showing PDF -->
-            <h2>ini buat pdf</h2>
+            <iframe src="<?= $data['file']; ?>" frameborder="0"></iframe>
         </div>
     </div>
 </div>

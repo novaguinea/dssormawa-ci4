@@ -27,6 +27,8 @@ class Data extends BaseController
         $this->criterionModel = new CriterionModel();
         $this->scoringModel = new ScoringModel();
         $this->verificationStatusModel = new VerificationStatusModel();
+
+        $this->session = \Config\Services::session();
     }
 
     public function index()
@@ -34,10 +36,13 @@ class Data extends BaseController
         $do = $this->finalCalculation();
         arsort($do);
 
+
         $data = [
             'title' => 'Kategori Penilaian',
             'users' => $this->userModel->getAllOrmawaUsers(),
-            'dataormawa' => $do
+            'dataormawa' => $do,
+            'ormawa_id' => $this->session->get('id'),
+            'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/data/index', $data);
@@ -49,7 +54,8 @@ class Data extends BaseController
             'title' => 'Detail Data',
             'users' => $this->userModel->getUsers(),
             'category' => $this->categoryModel->getCategories(),
-            'criterion' => $this->criterionModel->getCriterionById($id)
+            'criterion' => $this->criterionModel->getCriterionById($id),
+            'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/data/data_category_user', $data);
@@ -57,13 +63,16 @@ class Data extends BaseController
 
     public function detailDataCriterion($idCat)
     {
+        $ormawa_id = $this->session->get('id');
+
         $data = [
             'title' => 'Detail Data',
             'users' => $this->userModel->getUsers(),
             'category' => $this->categoryModel->getCategories(),
             'criterion' => $this->criterionModel->getCriterionByCategory($idCat),
             'status' => $this->verificationStatusModel->getAllData(),
-            'data' => $this->dataOrmawaModel->getAllDataByOrmawa(1)
+            'data' => $this->dataOrmawaModel->getAllDataByOrmawa($ormawa_id),
+            'role_id' => $this->session->get('role_id')
             //$this->dataOrmawaModel->getAllDataByOrmawa($idOrmawa)
         ];
 
@@ -99,7 +108,8 @@ class Data extends BaseController
             'criterion' => $this->criterionModel->getCriterionById($idCriterion),
             'data' => $dataormawa,
             'status' => $this->verificationStatusModel->getAllData(),
-            'scoring' => $this->scoringModel->getScoringById($dataormawa['score'])
+            'scoring' => $this->scoringModel->getScoringById($dataormawa['score']),
+            'role_id' => $this->session->get('role_id')
             //$this->dataOrmawaModel->getAllDataByOrmawa($idOrmawa)
         ];
 
@@ -313,7 +323,14 @@ class Data extends BaseController
 
         foreach($dataPerCriteria as $d => $d_value)
         {
-            $result = $d_value/$divider*$weight;
+            if($weight == 0 || $divider == 0)
+            {
+                $result = $d_value/1;
+            }
+            else 
+            {
+                $result = $d_value / $weight;
+            }
             $newMatrix += [$d => $result];
         }
         // dd($newMatrix);

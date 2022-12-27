@@ -23,6 +23,7 @@ class DataOrmawa extends BaseController
         $this->criterionModel = new CriterionModel();
         $this->scoringModel = new ScoringModel();
         $this->verificationStatusModel = new VerificationStatusModel();
+        $this->session = \Config\Services::session();
     }
 
     public function listOfCategory()
@@ -30,7 +31,8 @@ class DataOrmawa extends BaseController
 
         $data = [
             'title' => 'Kategori Penilaian',
-            'category' => $this->categoryModel->getCategories()
+            'category' => $this->categoryModel->getCategories(),
+            'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/dataormawa/index', $data);
@@ -41,7 +43,8 @@ class DataOrmawa extends BaseController
         $data = [   
             'title' => 'Kategori Penilaian',
             'category' => $this->categoryModel->getCategoryById($id),
-            'criterion' => $this->criterionModel->getCriterionByCategory($id)
+            'criterion' => $this->criterionModel->getCriterionByCategory($id),
+            'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/dataormawa/data_criterion', $data);
@@ -57,8 +60,9 @@ class DataOrmawa extends BaseController
             'scoring' => $this->scoringModel->getScoringByCriterion($id),
             'data_nilai' => $this->dataOrmawaModel->getDataByCriterion($id),
             'status' => $this->verificationStatusModel->getAllData(),
-            'ormawa_id' => 2,
-            'files' => $file
+            'ormawa_id' => $this->session->get('id'),
+            'files' => $file,
+            'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/dataormawa/input_data', $data);
@@ -76,13 +80,14 @@ class DataOrmawa extends BaseController
             // dd($this->request->getPost('inputDataScoring'));
 
             $data = [
-                'ormawa_id' => 2,
+                'ormawa_id' => $this->session->get('id'),
                 'criterion_id' => $id,
                 'title' => $this->request->getPost('inputDataTitle'),
                 'description' => $this->request->getPost('inputDataDescription'),
                 'score' => $x,
                 'scope' => $this->request->getPost('inputDataScoringDesc'),
-                'file' => $file
+                'file' => $file,
+                'role_id' => $this->session->get('role_id')
             ];
             
             $this->dataOrmawaModel->addData($data);

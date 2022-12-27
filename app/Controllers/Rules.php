@@ -35,6 +35,7 @@ class Rules extends BaseController
         $this->variableModel = new VariableModel();
         $this->criterionModel = new CriterionModel();
         $this->scoringModel = new ScoringModel();
+        $this->session = \Config\Services::session();
     }
 
 
@@ -43,8 +44,11 @@ class Rules extends BaseController
 
         $data = [
             'title' => 'Data Kategori Penilaian',
-            'category' => $this->categoryModel->getCategories()
+            'category' => $this->categoryModel->getCategories(),
+            'role_id' => $this->session->get('role_id')
         ];
+
+        // dd($this->session->get());
 
         return view('pages/rules/index', $data);
     }
@@ -66,17 +70,13 @@ class Rules extends BaseController
         $id = $this->request->getPost("hiddenCategoryId");
         $dataWeight = $this->request->getPost("inputCriterionWeight");
 
-        if($this->checkCriterionWeighting($dataWeight)) //for checking whether this criterion is under 100 or not
-        {
-            $this->criterionModel->addCriterion([
-                'id_cat' => $id,
-                'criterion_name' => $this->request->getPost("inputCriterion"),
-                'criterion_weight' => $this->request->getPost("inputCriterionWeight"),
-                'is_active' => 1
-            ]);
-
-            return redirect()->to("/rules/detail/$id");
-        }
+        $this->criterionModel->addCriterion([
+            'id_cat' => $id,
+            'criterion_name' => $this->request->getPost("inputCriterion"),
+            'criterion_weight' => $this->request->getPost("inputCriterionWeight"),
+            'description' => $this->request->getVar("inputCriterionDescription"),
+            'is_active' => 1
+        ]);
 
         return redirect()->to("/rules/detail/$id");
         
@@ -103,7 +103,8 @@ class Rules extends BaseController
         $data = [
             'title' => 'Detail Kategori',
             'category' => $this->categoryModel->getCategoryById($id),
-            'criterion' => $this->criterionModel->getCriterionByCategory($id)
+            'criterion' => $this->criterionModel->getCriterionByCategory($id),
+            'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/rules/detail_category', $data);
@@ -114,7 +115,8 @@ class Rules extends BaseController
         $data = [
             'title' => 'Detail Kategori',
             'criterion' => $this->criterionModel->getCriterionById($idCriterion),
-            'scoring' => $this->scoringModel->getScoringByCriterion($idCriterion)
+            'scoring' => $this->scoringModel->getScoringByCriterion($idCriterion),
+            'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/rules/detail_scoring', $data);
@@ -124,7 +126,8 @@ class Rules extends BaseController
     {
         $data = [
             'title' => 'Add New Criterion',
-            'category' => $this->categoryModel->getCategoryById($id)
+            'category' => $this->categoryModel->getCategoryById($id),
+            'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/rules/add_criterion', $data);
@@ -134,7 +137,8 @@ class Rules extends BaseController
     {
         $data = [
             'title' => 'Add New Criterion',
-            'criterionId' => $idCriterion
+            'criterionId' => $idCriterion,
+            'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/rules/add_scoring', $data);

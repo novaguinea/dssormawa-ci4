@@ -48,6 +48,7 @@ $routes->get('/users/add', 'Users::add');
 $routes->get('/users/delete/(:segment)', 'Users::delete/$1');
 $routes->get('/users/(:segment)', 'Users::detail/$1');
 
+$routes->get('/logout', 'Users::logout');
 $routes->post('/users/saveUser', 'Users::saveUser');
     
 //routes for rules
