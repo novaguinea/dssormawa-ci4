@@ -85,7 +85,7 @@ class DataOrmawa extends BaseController
                 'title' => $this->request->getPost('inputDataTitle'),
                 'description' => $this->request->getPost('inputDataDescription'),
                 'score' => $x,
-                'scope' => $this->request->getPost('inputDataScoringDesc'),
+                'scope' => $this->request->getPost('inputDataScope'),
                 'file' => $file,
                 'role_id' => $this->session->get('role_id')
             ];

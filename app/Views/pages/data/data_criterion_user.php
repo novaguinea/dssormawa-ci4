@@ -7,6 +7,10 @@
     <?= $this->include('layout/sidebar_ormawa'); ?>
 <?php endif; ?>
 
+<?php 
+// dd($data);
+?>
+
 <div class="container">
     <div class="row">
         <div class="col">

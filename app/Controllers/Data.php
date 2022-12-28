@@ -11,6 +11,7 @@ use App\Models\VariableModel;
 use App\Models\VerificationStatusModel;
 
 use CodeIgniter\Files\File;
+use PhpParser\Node\Expr\FuncCall;
 
 use function PHPUnit\Framework\isNan;
 use function PHPUnit\Framework\isNull;
@@ -36,7 +37,6 @@ class Data extends BaseController
         $do = $this->finalCalculation();
         arsort($do);
 
-
         $data = [
             'title' => 'Kategori Penilaian',
             'users' => $this->userModel->getAllOrmawaUsers(),
@@ -52,26 +52,25 @@ class Data extends BaseController
     {
         $data = [
             'title' => 'Detail Data',
+            'id_ormawa' => $id,
             'users' => $this->userModel->getUsers(),
             'category' => $this->categoryModel->getCategories(),
-            'criterion' => $this->criterionModel->getCriterionById($id),
+            // 'criterion' => $this->criterionModel->getCriterionById($id),
             'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/data/data_category_user', $data);
     }
 
-    public function detailDataCriterion($idCat)
+    public function detailDataCriterion($idOrmawa, $idCat)
     {
-        $ormawa_id = $this->session->get('id');
-
         $data = [
             'title' => 'Detail Data',
             'users' => $this->userModel->getUsers(),
             'category' => $this->categoryModel->getCategories(),
             'criterion' => $this->criterionModel->getCriterionByCategory($idCat),
             'status' => $this->verificationStatusModel->getAllData(),
-            'data' => $this->dataOrmawaModel->getAllDataByOrmawa($ormawa_id),
+            'data' => $this->dataOrmawaModel->getAllDataByOrmawa($idOrmawa),
             'role_id' => $this->session->get('role_id')
             //$this->dataOrmawaModel->getAllDataByOrmawa($idOrmawa)
         ];
@@ -204,8 +203,13 @@ class Data extends BaseController
 
     public function dump()
     {
-        $data = $this->mooraCalculation();
-        $rank = $this->finalCalculation($data);
+        $coba = $this->request->getPost("editordata");
+        $data = [
+            'title' => 'dump',
+            'coba' => $coba
+        ];
+        
+        return view('pages/dump', $data);
     }
 
 
@@ -243,7 +247,7 @@ class Data extends BaseController
             $criteria = $this->criterionModel->getCriterionByCategory($c['id']);
             // var_dump($c['id']);
             $matrix = $this->inputMatrix($c['id']);
-            // var_dump($matrix);
+            // dd($matrix);
             foreach($matrix as $m => $m_value)
             {
                 // var_dump($matrix);
@@ -255,7 +259,7 @@ class Data extends BaseController
             
             $data[$c['id']] = $newMatrix;
             $newMatrix = (array) null;
-            // var_dump($data);
+            // dd($data);
         }
 
         return $data;
@@ -267,7 +271,7 @@ class Data extends BaseController
         $data = (array) null;
         $matrix = (array) null;
 
-        $criterion = $this->criterionModel->getCriterionByCategory($idCat);
+        $criterion = $this->criterionModel->getCriterionByCategory($idCat); //get all criterion?
 
         $users = $this->userModel->getAllOrmawaUsers();
 
@@ -292,7 +296,7 @@ class Data extends BaseController
     }
 
     //calculating score from each criterion filtered by ormawa_id
-    public function calculateScore($idCriterion, $idOrmawa) : int
+    public function calculateScore($idCriterion, $idOrmawa) : float
     {
         $dataCriterion = $this->dataOrmawaModel->getAllDataByOrmawa($idOrmawa);
         $dataCount = 0;
@@ -301,11 +305,11 @@ class Data extends BaseController
         {
             if($d['criterion_id'] == $idCriterion)
             {
-                $dataCount = $dataCount +  (int)($d['score']);
+                $dataCount = $dataCount +  (float)($d['score']);
             }
         }        
 
-        return (int)$dataCount;
+        return (float)$dataCount;
     }
 
     public function normalizationPerCriteria(array $dataPerCriteria, $weight)
@@ -337,6 +341,142 @@ class Data extends BaseController
 
         return $newMatrix;
 
+    }
+
+    // ------------- NEW --------------------- //
+
+    public function inputMat()
+    {
+        $x = 1;
+        $data = (array) null;
+        $matrix = (array) null;
+
+        $criterion = $this->criterionModel->getCriterions();
+
+        $users = $this->userModel->getAllOrmawaUsers();
+
+        foreach ($criterion as $c) {
+            foreach ($users as $u) {
+                $score = $this->calculateScore($c['id'], $u['id']);
+                $data += [$u['id'] => $score];
+                $x++;
+            }
+            // dd($data);
+            $matrix += [($c['id']) => $data];
+            // var_dump($matrix);
+            $x = 1;
+
+            $data = (array) null;
+        }
+
+        // dd($matrix);
+
+        $hehe = [
+            'data' => $matrix
+        ];
+
+        return $matrix;
+
+        // return view('/pages/dump', $hehe);
+
+    }
+
+    public function doNormalization()
+    {
+        $data = $this->inputMat();
+        $newData = (array) null;
+        // dd($data);
+        $criterion = $this->criterionModel->getCriterions();
+        $newMatrix = (array) null;
+
+        $divider = 0;
+
+        foreach($data as $datas => $data_value)
+        {
+            foreach($data_value as $user_id => $user_value)
+            {
+                $divider += pow((float)$user_value, 2);
+            }
+
+            $divider = sqrt($divider);
+
+            foreach ($data_value as $user_id => $user_value) {
+
+                $value = $user_value/$divider;
+
+                if(!isset($newData))
+                {
+                    $newData = [$user_id => round($value, 4)];
+                } else {
+                    $newData += [$user_id => round($value, 4)];
+                }
+
+                $value = 0;
+            }
+
+            $newMatrix += [$datas => $newData];
+
+            $newData = null;
+        }
+        // dd($newMatrix);
+
+        return $newMatrix;
+    }
+
+    public function finalResult()
+    {
+        $ormawa = $this->userModel->getAllOrmawaUsers();
+        $data = $this->doNormalization();
+        $newData = (array) null;
+
+        /**
+         * 
+         * 
+         * $data = [
+         *      $kriteria_id => [
+            *      $user_id => value,
+            *      $user2 => value
+         * ],
+         * $kriteria_id2 = [
+         *      $user_id => value,
+         *      $user2 => value
+         * ]
+         * 
+         * ]
+         * 
+         * $data baru = [
+         * 
+         *      $user1 => jumlah value dari semua kriteria,
+         *      $user2 => 
+         * 
+         * ]
+         * 
+         */
+        
+        $value = 0;
+
+            foreach($ormawa as $or) {
+                foreach($data as $d => $d_value) { //$d (kriteria_id) => $d_value (isi data para users di kriteria itu)
+                    foreach($d_value as $user_id => $user_value)
+                    {
+                        if($or['id'] == $user_id) {
+                            $value += $user_value;
+                        }
+                        
+                    }
+                }
+                
+                if(!isset($newData)) {
+                    $newData = [$or['id'] => $value];
+                } else {
+                    $newData += [$or['id'] => $value];
+                }
+                $value = null;
+
+            }
+
+            // dd($newData);
+            return $newData;
     }
 
 }

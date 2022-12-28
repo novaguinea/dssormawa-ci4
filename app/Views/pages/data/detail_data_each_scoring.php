@@ -38,10 +38,15 @@
                     <td class="col-2">:</td>
                     <td><?= $data['description']; ?></td>
                 </tr>
-                <tr class="spaceUnder">
+                <!-- <tr class="spaceUnder">
                     <th class="col-4">Tingkat</th>
                     <td class="col-2">:</td>
                     <td><?= $data['scope']; ?></td>
+                </tr> -->
+                <tr class="spaceUnder">
+                    <th class="col-4">File</th>
+                    <td class="col-2">:</td>
+                    <td><a class="btn" style="background-color: #FF8976; color:beige" target="_blank" href="<?= $data['file'] ?>">PDF</a></td>
                 </tr>
                 <tr>
                     <th class="col-4">Status</th>

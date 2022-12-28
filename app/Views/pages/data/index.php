@@ -50,6 +50,7 @@
                 </thead>
                 <tbody>
                     <?php
+                    // dd($dataormawa);
                     $x = 1;
                     foreach ($dataormawa as $do => $do_value) : ?>
                         <tr>
