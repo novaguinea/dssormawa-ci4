@@ -102,6 +102,7 @@
                         <th scope="col">Status</th>
                         <th scope="col">Skor</th>
                         <th scope="col">Berkas</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -123,7 +124,14 @@
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                                 <td><?= $u['score']; ?></td>
-                                <td> <a class="btn" style="background-color: #FF8976; color:beige" target="_blank" href="<?= $u['file'] ?>">PDF</a></td>
+                                <td>
+                                    <?php
+                                    if ($u['file'] != null) :
+                                    ?>
+                                        <a class="btn" style="background-color: #FF8976; color:beige" target="_blank" href="<?= $u['file'] ?>">PDF</a>
+                                    <?php endif; ?>
+                                </td>
+                                <td><a class="btn btn-danger" href="/ormawa/deleteData/<?= $u['criterion_id'] ?>/<?= $u['id']  ?>">Delete</a></td>
                             </tr>
                         <?php $x++;
                         endif;
@@ -168,18 +176,18 @@
         console.log(files);
     });
 
-    document.getElementById("uploadFile").addEventListener("click", function() {
+    document.getElementById("uploadFile").addEventListener("click", () => {
         var storage = firebase.storage();
         var storageRef = storage.ref(files[0].name);
-        var upload = storageRef.put(files[0]);
-        console.log(files);
+        var upload = storageRef.put(files[0]).then(() => {
+            // get the URL of the uploaded file
+                storageRef.getDownloadURL().then(url => {
+                    console.log(url);
+                    document.getElementById("fileURL").value = url;
 
-        // get the URL of the uploaded file
-        storageRef.getDownloadURL().then(url => {
-            console.log(url);
-            document.getElementById("fileURL").value = url;
-
-        });
+                });
+            }
+        );
 
     });
 </script>

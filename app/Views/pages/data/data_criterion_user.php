@@ -28,7 +28,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Judul</th>
                             <th scope="col">Deskripsi</th>
-                            <th scope="col">Tingkat</th>
+                            <th scope="col">Skor</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -43,7 +43,7 @@
                                     <th scope="row"><?= $x; ?></th>
                                     <td><?= $u['title']; ?></td>
                                     <td><?= $u['description']; ?></td>
-                                    <td><?= $u['scope']; ?></td>
+                                    <td><?= $u['score']; ?></td>
                                     <?php foreach ($status as $s) {
                                         if ($s['id'] == $u['id_is_verified']) {
                                             echo '<td>' . $s['name'] . '</td>';

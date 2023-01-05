@@ -95,6 +95,14 @@ class DataOrmawa extends BaseController
             return redirect()->to("ormawa/category/criterion/$id");
         }
 
+    public function deleteDataORMAWA($idCriteria, $idData)
+    {
+        $this->dataOrmawaModel->deleteData($idData);
+
+        return redirect()->to("/ormawa/category/criterion/$idCriteria");
     }
+
+
+}
 
 

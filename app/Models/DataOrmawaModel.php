@@ -47,6 +47,11 @@ class DataOrmawaModel extends Model
         return $this->where(['ormawa_id' => $idOrmawa])->where(['criterion_id' => $idCriterion])->findAll();
     }
 
+    public function getDataOrmawaByStatus($idOrmawa)
+    {
+        return $this->where(['ormawa_id' => $idOrmawa])->where(['id_is_verified' => 1])->findAll();
+    }
+
     public function getDataById($id)
     {
         return $this->where(['id' => $id])->first();

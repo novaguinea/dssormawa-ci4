@@ -34,7 +34,7 @@ class Data extends BaseController
 
     public function index()
     {
-        $do = $this->finalCalculation();
+        $do = $this->finalResult();
         arsort($do);
 
         $data = [
@@ -298,7 +298,7 @@ class Data extends BaseController
     //calculating score from each criterion filtered by ormawa_id
     public function calculateScore($idCriterion, $idOrmawa) : float
     {
-        $dataCriterion = $this->dataOrmawaModel->getAllDataByOrmawa($idOrmawa);
+        $dataCriterion = $this->dataOrmawaModel->getDataOrmawaByStatus($idOrmawa);
         $dataCount = 0;
 
         foreach($dataCriterion as $d)
@@ -375,6 +375,7 @@ class Data extends BaseController
             'data' => $matrix
         ];
 
+        // dd($matrix);
         return $matrix;
 
         // return view('/pages/dump', $hehe);
@@ -402,13 +403,18 @@ class Data extends BaseController
 
             foreach ($data_value as $user_id => $user_value) {
 
-                $value = $user_value/$divider;
+                if($divider==0)
+                {
+                    $value = $user_value/1;
+                } else {
+                    $value = $user_value / $divider;
+                }
 
                 if(!isset($newData))
                 {
-                    $newData = [$user_id => round($value, 4)];
+                    $newData = [$user_id => $value]; // buat buletin  round(, 4)
                 } else {
-                    $newData += [$user_id => round($value, 4)];
+                    $newData += [$user_id => $value];
                 }
 
                 $value = 0;
@@ -467,9 +473,9 @@ class Data extends BaseController
                 }
                 
                 if(!isset($newData)) {
-                    $newData = [$or['id'] => $value];
+                    $newData = [$or['nama'] => $value];
                 } else {
-                    $newData += [$or['id'] => $value];
+                    $newData += [$or['nama'] => $value];
                 }
                 $value = null;
 

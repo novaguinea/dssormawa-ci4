@@ -88,6 +88,7 @@ $routes->get('/ormawa/category', 'DataOrmawa::listOfCategory');
 $routes->get('/ormawa/category/(:segment)', 'DataOrmawa::detailCategory/$1');
 $routes->get('/ormawa/category/criterion/(:segment)', 'DataOrmawa::detailCriterion/$1');
 $routes->post('/ormawa/category/criterion/saveData', 'DataOrmawa::inputData');
+$routes->get('/ormawa/deleteData/(:segment)/(:segment)', 'DataOrmawa::deleteDataORMAWA/$1/$2');
 
 /*
  * --------------------------------------------------------------------

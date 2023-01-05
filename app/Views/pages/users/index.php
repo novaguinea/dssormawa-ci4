@@ -36,7 +36,7 @@
                             <?php if ($u['role_id'] == 1 ? $isOrmawa = "ORMAWA" : $isOrmawa = "Admin"); ?>
                             <td><?= $isOrmawa; ?></td>
                             <td>
-                                <a class="btn btn-warning" href="users/edit/<?= $u['id']; ?>">Edit</a>
+                                <!-- <a class="btn btn-warning" href="users/edit/<?= $u['id']; ?>">Edit</a> -->
                                 <a class="btn btn-danger" href="users/delete/<?= $u['id']; ?>">Delete</a>
                             </td>
                         </tr>
