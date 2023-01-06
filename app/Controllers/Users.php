@@ -115,7 +115,7 @@ class Users extends BaseController
     {
         $this->session->destroy();
 
-        return redirect()->to("/login");
+        return redirect()->to("/");
     }
 
 

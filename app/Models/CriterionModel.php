@@ -45,4 +45,9 @@ class CriterionModel extends Model
     {
         return $this->where(['id' => $id])->delete();
     }
+
+    public function deleteCriterionbyCategory($id)
+    {
+        return $this->where(['id_cat' => $id])->delete();
+    }
 }

@@ -146,6 +146,7 @@ class Rules extends BaseController
 
     public function deleteCategory($id)
     {
+        $this->criterionModel->deleteCriterionbyCategory($id);
         $this->categoryModel->deleteCategory($id);
 
         return redirect()->to("/rules");
@@ -196,8 +197,5 @@ class Rules extends BaseController
 
         return $isSafe;
     }
-
-
-  
 
 }
