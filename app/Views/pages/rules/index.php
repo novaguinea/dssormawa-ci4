@@ -2,11 +2,23 @@
 
 <?= $this->section('content'); ?>
 
-<?php if($role_id == 2): ?>
-<?= $this->include('layout/sidebar_admin'); ?>
-<?php else: ?>
-<?= $this->include('layout/sidebar_ormawa'); ?>
-<?php endif; ?>
+<?php
+
+switch ($role_id) {
+    case 1:
+        echo $this->include('layout/sidebar_ormawa');
+        break;
+    case 2:
+        echo $this->include('layout/sidebar_admin');
+        break;
+    case 3:
+        echo $this->include('layout/sidebar_juri');
+        break;
+    default:
+        echo $this->include('layout/sidebar_pembina');
+}
+
+?>
 
 <div class="container">
     <div class="row">

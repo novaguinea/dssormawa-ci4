@@ -13,7 +13,7 @@ class VerificationStatusModel extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['id', 'name'];
+    protected $allowedFields = ['name', 'access'];
 
     protected $useTimestamps = true;
 
@@ -24,6 +24,16 @@ class VerificationStatusModel extends Model
     public function getAllData()
     {
         return $this->findAll();
+    }
+
+    public function getJuriData()
+    {
+        return $this->where(['access !=' => 2])->findAll();
+    }
+
+    public function getPembinaData()
+    {
+        return $this->where(['access !=' => 1])->findAll();
     }
 
     public function updateVerification($id, $data)

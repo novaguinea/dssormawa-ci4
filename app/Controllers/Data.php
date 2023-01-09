@@ -42,10 +42,29 @@ class Data extends BaseController
             'users' => $this->userModel->getAllOrmawaUsers(),
             'dataormawa' => $do,
             'ormawa_id' => $this->session->get('id'),
+            // 'ormawa_related' => $this->session->get('ormawa_related'),
             'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/data/index', $data);
+    }
+
+    public function indexPembina()
+    {
+        $do = $this->finalResult();
+        arsort($do);
+
+        $getOrmawaPembina = $this->userModel->getUserById($this->session->get('ormawa_related'));
+        $data = [
+            'title' => 'Data',
+            'users' => $this->userModel->getUsers(),
+            'ormawa_id' => $this->session->get('id'),
+            'ormawa_related' => $getOrmawaPembina,
+            'dataormawa' => $do,
+            'role_id' => $this->session->get('role_id')
+        ];
+
+        return view('pages/data/index_pembina', $data);
     }
 
     public function detailOrmawa($id)
@@ -100,15 +119,26 @@ class Data extends BaseController
     {
         $dataormawa = $this->dataOrmawaModel->getDataById($idData);
 
+        $verificationStatus = (array) null;
+        $roleId = $this->session->get('role_id');
+
+        if($roleId == 4)
+        {
+            $verificationStatus = $this->verificationStatusModel->getPembinaData();
+        } else {
+            $verificationStatus = $this->verificationStatusModel->getJuriData();
+        }
+        
+
         $data = [
             'title' => 'Detail Data',
             'users' => $this->userModel->getUsers(),
             'category' => $this->categoryModel->getCategories(),
             'criterion' => $this->criterionModel->getCriterionById($idCriterion),
             'data' => $dataormawa,
-            'status' => $this->verificationStatusModel->getAllData(),
+            'status' => $verificationStatus,
             'scoring' => $this->scoringModel->getScoringById($dataormawa['score']),
-            'role_id' => $this->session->get('role_id')
+            'role_id' => $roleId
             //$this->dataOrmawaModel->getAllDataByOrmawa($idOrmawa)
         ];
 

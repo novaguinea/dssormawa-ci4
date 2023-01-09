@@ -1,12 +1,24 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?php if ($role_id == 2) : ?>
-    <?= $this->include('layout/sidebar_admin'); ?>
-<?php else : ?>
-    <?= $this->include('layout/sidebar_ormawa'); ?>
-<?php endif; ?>
-<!--put your content here-->
+
+<?php
+
+switch ($role_id) {
+    case 1:
+        echo $this->include('layout/sidebar_ormawa');
+        break;
+    case 2:
+        echo $this->include('layout/sidebar_admin');
+        break;
+    case 3:
+        echo $this->include('layout/sidebar_juri');
+        break;
+    default:
+        echo $this->include('layout/sidebar_pembina');
+}
+
+?>
 
 <div class="container">
     <div class="row">
@@ -181,13 +193,12 @@
         var storageRef = storage.ref(files[0].name);
         var upload = storageRef.put(files[0]).then(() => {
             // get the URL of the uploaded file
-                storageRef.getDownloadURL().then(url => {
-                    console.log(url);
-                    document.getElementById("fileURL").value = url;
+            storageRef.getDownloadURL().then(url => {
+                console.log(url);
+                document.getElementById("fileURL").value = url;
 
-                });
-            }
-        );
+            });
+        });
 
     });
 </script>

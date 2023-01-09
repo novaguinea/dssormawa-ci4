@@ -6,6 +6,7 @@ use App\Models\CategoryModel;
 use App\Models\CriterionModel;
 use App\Models\ScoringModel;
 use App\Models\VariableModel;
+use App\Models\UserRoleModel;
 
 class Users extends BaseController
 {
@@ -17,6 +18,7 @@ class Users extends BaseController
         $this->variableModel = new VariableModel();
         $this->criterionModel = new CriterionModel();
         $this->scoringModel = new ScoringModel();
+        $this->userRoleModel = new UserRoleModel();
         $this->session = \Config\Services::session();
         $this->session->start();
     }
@@ -26,6 +28,7 @@ class Users extends BaseController
         $data = [
             'title' => 'data user',
             'users' => $this->userModel->getUsers(),
+            'user_role' => $this->userRoleModel->getDataRoles(),
             'role_id' => $this->session->get('role_id')
         ];
 
@@ -36,7 +39,9 @@ class Users extends BaseController
     {
         $data = [
             'title' => 'Add New Account',
-            'role_id' => $this->session->get('role_id')
+            'role_id' => $this->session->get('role_id'),
+            'user_role' => $this->userRoleModel->getDataRoles(),
+            'ormawa_data' => $this->userModel->getAllOrmawaUsers()
         ];
 
         return view('pages/users/add_user', $data);
@@ -79,10 +84,13 @@ class Users extends BaseController
         if($valid['role_id'] == 1)
         {
             return redirect()->to('/ormawa/category');
+        } else if($valid['role_id'] == 4) 
+        {
+            return redirect()->to('/data/ormawa');
+        } else {
+            return redirect()->to('/data');
         }
         
-        return redirect()->to('/users');
-    
     }
 
     // public function detail($id)
@@ -102,7 +110,8 @@ class Users extends BaseController
             'username' => $this->request->getPost("inputUsername"),
             'password' => $this->request->getPost("inputPassword"),
             'nama' => $this->request->getPost("inputNama"),
-            'role_id' => 1 //by default new user is ORMAWA
+            'role_id' => $this->request->getPost("userRoleId"),
+            'ormawa_related' => $this->request->getPost("ormawaRelatedId")
         ]);
 
         return redirect()->to('/users');

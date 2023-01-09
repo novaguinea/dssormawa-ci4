@@ -1,13 +1,23 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?php if ($role_id == 2) : ?>
-    <?= $this->include('layout/sidebar_admin'); ?>
-<?php else : ?>
-    <?= $this->include('layout/sidebar_ormawa'); ?>
-<?php endif; ?>
 
-<?php //dd($scoring); 
+<?php 
+
+switch($role_id)
+{
+    case 1:
+        echo $this->include('layout/sidebar_ormawa');
+        break;
+    case 2:
+        echo $this->include('layout/sidebar_admin');
+        break;
+    case 3:
+        echo $this->include('layout/sidebar_juri');
+        break;
+    default:
+        echo $this->include('layout/sidebar_pembina');
+}
 
 ?>
 
@@ -55,22 +65,26 @@
                         <div class="dropdown dropdown-verification" style="height: 50%;">
                             <form action="/data/updateStatusData" id="updateStatus" method="post" onchange="">
                                 <input name="idForDataOrmawaStatus" type="hidden" value="<?= $data['id']; ?>">
-                                <select class="btn btn-primary" name="dataOrmawaStatus" id="" onchange="this.form.submit()">
-                                    <?php foreach ($status as $s) :
-                                        if ($data['id_is_verified'] == $s['id']) : ?>
-                                            <option value="<?= $s['id']; ?>" selected="<?= "selected"; ?>">
-                                                <?= $s['name']; ?>
-                                            </option>
-                                        <?php else : ?>
-                                            <option value="<?= $s['id']; ?>">
-                                                <?= $s['name']; ?>
-                                            </option>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                </select>
-                                <script>
-                                    // var oldData = document.getElementsByName('dataOrmawaStatus');
-                                </script>
+                                <?php if ($data['id_is_verified'] == 1 && $role_id == 4) : ?>
+                                    <p style="color: green;"><b>Diterima Juri</b></p>
+                                <?php else : ?>
+                                    <select class="btn btn-primary" name="dataOrmawaStatus" id="" onchange="this.form.submit()">
+                                        <?php foreach ($status as $s) :
+                                            if ($data['id_is_verified'] == $s['id']) : ?>
+                                                <option value="<?= $s['id']; ?>" selected="<?= "selected"; ?>">
+                                                    <?= $s['name']; ?>
+                                                </option>
+                                            <?php else : ?>
+                                                <option value="<?= $s['id']; ?>">
+                                                    <?= $s['name']; ?>
+                                                </option>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                    </select>
+                                    <script>
+                                        // var oldData = document.getElementsByName('dataOrmawaStatus');
+                                    </script>
                             </form>
                         </div>
                     </td>

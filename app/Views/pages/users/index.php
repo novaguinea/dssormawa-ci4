@@ -1,11 +1,24 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?php if ($role_id == 2) : ?>
-    <?= $this->include('layout/sidebar_admin'); ?>
-<?php else : ?>
-    <?= $this->include('layout/sidebar_ormawa'); ?>
-<?php endif; ?>
+
+<?php
+
+switch ($role_id) {
+    case 1:
+        echo $this->include('layout/sidebar_ormawa');
+        break;
+    case 2:
+        echo $this->include('layout/sidebar_admin');
+        break;
+    case 3:
+        echo $this->include('layout/sidebar_juri');
+        break;
+    default:
+        echo $this->include('layout/sidebar_pembina');
+}
+
+?>
 
 <div class="container">
     <div class="row">
@@ -33,8 +46,14 @@
                             <th scope="row"><?= $x; ?></th>
                             <td><?= $u['username']; ?></td>
                             <td><?= $u['nama']; ?></td>
-                            <?php if ($u['role_id'] == 1 ? $isOrmawa = "ORMAWA" : $isOrmawa = "Admin"); ?>
-                            <td><?= $isOrmawa; ?></td>
+                            <?php foreach ($user_role as $ur) : ?>
+                                <?php if ($u['role_id'] == $ur['id']) : ?>
+                                    <td><?= $ur['name']; ?></td>
+                            <?php
+                                endif;
+                            endforeach;
+                            ?>
+
                             <td>
                                 <!-- <a class="btn btn-warning" href="users/edit/<?= $u['id']; ?>">Edit</a> -->
                                 <a class="btn btn-danger" href="users/delete/<?= $u['id']; ?>">Delete</a>

@@ -13,7 +13,7 @@ class UserModel extends Model
 
     protected $returnType     = 'array';
 
-    protected $allowedFields = ['username', 'nama', 'password', 'logo', 'role_id'];
+    protected $allowedFields = ['username', 'nama', 'password', 'logo', 'role_id', 'ormawa_related'];
 
     protected $useTimestamps = true;
 

@@ -27,26 +27,17 @@ switch ($role_id) {
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Organisasi Kemahasiswaan</th>
+                        <th scope="col">Organisasi Binaan</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    $x = 1;
-                    foreach ($users as $u) :
-                    ?>
-                        <tr>
-                            <th scope="row"><?= $x; ?></th>
-                            <td><?= $u['nama']; ?></td>
-                            <td>
-                                <a class="btn btn-success" href="/data/<?= $u['id']; ?>">Detail</a>
-                            </td>
-                        </tr>
-                        <?php $x++;
-                        ?>
-                    <?php endforeach; ?>
+                    <tr>
+                        <td><?= $ormawa_related['nama']; ?></td>
+                        <td>
+                            <a class="btn btn-success" href="/data/<?= $ormawa_related['id']; ?>">Detail</a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 

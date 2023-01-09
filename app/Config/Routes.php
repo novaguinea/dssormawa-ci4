@@ -47,6 +47,7 @@ $routes->get('/users', 'Users::index');
 $routes->get('/users/add', 'Users::add');
 $routes->get('/users/delete/(:segment)', 'Users::delete/$1');
 $routes->get('/users/(:segment)', 'Users::detail/$1');
+// $routes->post;
 
 $routes->get('/logout', 'Users::logout');
 $routes->post('/users/saveUser', 'Users::saveUser');
@@ -72,6 +73,7 @@ $routes->get('/data/dump', 'Data::finalResult');
 $routes->get('/data/dump/(:segment)', 'Data::normalizationPerCri/$1');
 
 $routes->get('/data', 'Data::index');
+$routes->get('/data/ormawa', 'Data::indexPembina');
 $routes->post('/data/updateStatusData', 'Data::updateStatus');
 $routes->get('/data/(:segment)', 'Data::detailOrmawa/$1');
 $routes->get('/data/(:segment)/(:segment)', 'Data::detailDataCriterion/$1/$2');
