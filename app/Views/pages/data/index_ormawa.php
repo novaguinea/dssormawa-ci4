@@ -23,24 +23,8 @@ switch ($role_id) {
 
     <div class="row">
         <div class="col">
-            <h1 class="mt-4 mb-5">Data Organisasi Kemahasiswaan</h1>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Organisasi Binaan</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><?= $ormawa_related['nama']; ?></td>
-                        <td>
-                            <a class="btn btn-success" href="/data/<?= $ormawa_related['id']; ?>">Detail</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
+            <h1 class="mt-5 mb-3">Hasil Penilaian Data ORMAWA🏆</h1>
+            <hr>    
             <h3 class="mt-5 mb-3">Perolehan ORMAWA Terbaik</h3>
 
             <table class="table table-hover mb-5">

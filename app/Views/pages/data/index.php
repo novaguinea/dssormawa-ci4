@@ -75,6 +75,38 @@ switch ($role_id) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
+
+            <h3 class="mt-5 mb-3">Perolehan ORMAWA Berdasarkan Kategori</h3>
+
+            <table class="table table-hover mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Organisasi Kemahasiswaan</th>
+                        <?php foreach ($cat as $c) : ?>
+                            <th scope="col"><?= $c['category_name'] ?></th>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    // dd($dataormawa);
+                    $x = 1;
+                    foreach ($resultPerCat as $r => $r_value) : ?>
+                        <tr>
+                            <th scope="row"><?= $x; ?></th>
+                            <td><?= $r; ?></td>
+                            <?php foreach ($r_value as $do => $do_value) :
+                                //var_dump($do_value); 
+                            ?>
+                                <td><?= round($do_value, 3); ?></td>
+                            <?php endforeach; ?>
+                        </tr>
+                        <?php $x++;
+                        ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

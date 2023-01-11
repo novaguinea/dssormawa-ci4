@@ -9,6 +9,10 @@
             <li>
                 <a href="/ormawa/category" class="nav-link"><i class="fas fa-solid fa-file"></i><span>Penilaian</span></a>
             </li>
+            <li class="menu-header">Data ORMAWA</li>
+            <li>
+                <a href="/data/result" class="nav-link"><i class="fa-solid fa-square-poll-horizontal"></i><span>Data ORMAWA</span></a>
+            </li>
             <li class="menu-header">Keluar</li>
             <li>
                 <a href="/logout" class="nav-link"><i class="fas fa-solid fa-right-from-bracket"></i><span>Logout</span></a>

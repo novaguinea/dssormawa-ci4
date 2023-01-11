@@ -69,11 +69,7 @@ switch ($role_id) {
                             <td><?= $active ?></td>
                             <td>
                                 <a class="btn btn-success" href="/rules/detail/<?= $u['id']; ?>">Detail</a>
-                                <?php if ($u['id'] !=  1) : //handling for administrative category 
-                                ?>
-                                    <a class="btn btn-danger" href="rules/deleteCategory/<?= $u['id']; ?>">Delete</a>
-                                <?php endif; ?>
-
+                                <a class="btn btn-danger" href="rules/deleteCategory/<?= $u['id']; ?>">Delete</a>
                             </td>
                         </tr>
                         <?php $x++; ?>

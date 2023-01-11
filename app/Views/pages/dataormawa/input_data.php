@@ -66,27 +66,32 @@ switch ($role_id) {
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <div class="input-group mb-3">
-                            <label class="col-sm-2 col-form-label" id="" for="">File Pendukung</label>
-                            <input type="file" class="col-sm-6 form-control" id="inputDataSupportingFile">
-                            <button type="button" class="form-control btn btn-primary col-2" id="uploadFile" name="uploadFile">Upload</button>
+                        <label class="col-sm-2 col-form-label" id="" for="">File Pendukung <br> (Link G-Drive)</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="col-sm-12 form-control" name="inputDataSupportingFile" id="inputDataSupportingFile">
                         </div>
+                        <!-- <button type="button" class="form-control btn btn-primary col-2" id="uploadFile" name="uploadFile">Upload</button> -->
+
                     </div>
                     <div class="mb-3 row">
-                        <div class="input-group mb-3">
-                            <label for="" class="col-sm-2 col-form-label">
-                                Catatan indikator
-                            </label>
-                            <p class="col-sm-10">
+                        <label for="" class="col-sm-2 col-form-label">
+                            Catatan indikator
+                        </label>
+                        <p class="col-sm-10">
 
-                                <?= $criterion["description"]; ?>
-                            </p>
-                        </div>
+                            <?php if (!isset($criterion["description"])) {
+                                echo "<b>Tidak ada</b>";
+                            } else {
+                                echo $criterion["description"];
+                            }
+
+                            ?>
+                        </p>
                     </div>
 
                     <input type="hidden" id="hiddenCategoryId" name="hiddenCriterionId" value="<?= $criterion['id']; ?>">
                     <input type="hidden" id="fileURL" name="fileURL" value="">
-                    <div class="mt-5 mb-3 row">
+                    <div class="mt-4 mb-5 row">
                         <div class="col-sm-3">
                             <button type="submit" class="form-control btn btn-success" id="submitNewData">
                                 Save
@@ -140,7 +145,7 @@ switch ($role_id) {
                                     <?php
                                     if ($u['file'] != null) :
                                     ?>
-                                        <a class="btn" style="background-color: #FF8976; color:beige" target="_blank" href="<?= $u['file'] ?>">PDF</a>
+                                        <a class="btn" style="background-color: #4688F4; color:beige" target="_blank" href="<?= $u['file'] ?>">Link</a>
                                     <?php endif; ?>
                                 </td>
                                 <td><a class="btn btn-danger" href="/ormawa/deleteData/<?= $u['criterion_id'] ?>/<?= $u['id']  ?>">Delete</a></td>
@@ -166,41 +171,41 @@ switch ($role_id) {
     // tengkyu acil!!!!!!!!!!!!!!!!!!!!!!!!!! -> ini karena makasih aja si
     // SEMANGAT NISNOP🐖🐖🐖🐖❤️❤️❤️!!!!!!!!!!!!!!!!!!!!!!! --> ini di mushola
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyD89hwK6Tvp5MUaTOfORoWaiqn2rdmdq7A",
-        authDomain: "dss-ormawa-upnvj.firebaseapp.com",
-        projectId: "dss-ormawa-upnvj",
-        storageBucket: "dss-ormawa-upnvj.appspot.com",
-        messagingSenderId: "481706310378",
-        appId: "1:481706310378:web:6734c49cdc3958c21e7593"
-    };
+    // const firebaseConfig = {
+    //     apiKey: "AIzaSyD89hwK6Tvp5MUaTOfORoWaiqn2rdmdq7A",
+    //     authDomain: "dss-ormawa-upnvj.firebaseapp.com",
+    //     projectId: "dss-ormawa-upnvj",
+    //     storageBucket: "dss-ormawa-upnvj.appspot.com",
+    //     messagingSenderId: "481706310378",
+    //     appId: "1:481706310378:web:6734c49cdc3958c21e7593"
+    // };
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    console.log("halo");
+    // // Initialize Firebase
+    // firebase.initializeApp(firebaseConfig);
+    // console.log("halo");
 
 
-    var files = [];
+    // var files = [];
 
-    document.getElementById("inputDataSupportingFile").addEventListener("change", (e) => {
-        console.log(e.target);
-        files = e.target.files;
-        console.log(files);
-    });
+    // document.getElementById("inputDataSupportingFile").addEventListener("change", (e) => {
+    //     console.log(e.target);
+    //     files = e.target.files;
+    //     console.log(files);
+    // });
 
-    document.getElementById("uploadFile").addEventListener("click", () => {
-        var storage = firebase.storage();
-        var storageRef = storage.ref(files[0].name);
-        var upload = storageRef.put(files[0]).then(() => {
-            // get the URL of the uploaded file
-            storageRef.getDownloadURL().then(url => {
-                console.log(url);
-                document.getElementById("fileURL").value = url;
+    // document.getElementById("uploadFile").addEventListener("click", () => {
+    //     var storage = firebase.storage();
+    //     var storageRef = storage.ref(files[0].name);
+    //     var upload = storageRef.put(files[0]).then(() => {
+    //         // get the URL of the uploaded file
+    //         storageRef.getDownloadURL().then(url => {
+    //             console.log(url);
+    //             document.getElementById("fileURL").value = url;
 
-            });
-        });
+    //         });
+    //     });
 
-    });
+    // });
 </script>
 
 <!--content end here-->

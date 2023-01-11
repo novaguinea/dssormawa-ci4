@@ -11,7 +11,7 @@
             </li>
             <li class="menu-header">Kategori Penilaian</li>
             <li>
-                <a href="/rules" class="nav-link"><i class="fas fa-objects-column"></i><span>Kategori</span></a>
+                <a href="/rules" class="nav-link"><i class="fa-solid fa-layer-group"></i><span>Kategori</span></a>
             </li>
             <li class="menu-header">Data ORMAWA</li>
             <li>

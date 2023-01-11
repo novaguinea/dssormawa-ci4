@@ -70,12 +70,12 @@ class Users extends BaseController
 
         if(!$valid)
         {
-            return redirect()->to('/login');
+            return redirect()->to('/');
         } else 
         {
             if($data['password'] != $valid['password'])
             {
-                return redirect()->to('/login');
+                return redirect()->to('/');
             }
         }
 

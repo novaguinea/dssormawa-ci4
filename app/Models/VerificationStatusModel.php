@@ -26,11 +26,6 @@ class VerificationStatusModel extends Model
         return $this->findAll();
     }
 
-    public function getJuriData()
-    {
-        return $this->where(['access !=' => 2])->findAll();
-    }
-
     public function getPembinaData()
     {
         return $this->where(['access !=' => 1])->findAll();

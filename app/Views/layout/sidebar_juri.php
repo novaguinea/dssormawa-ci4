@@ -5,6 +5,10 @@
             <p>untuk Juri</p>
         </div>
         <ul class="sidebar-menu">
+            <li class="menu-header">Kategori Penilaian</li>
+            <li>
+                <a href="/rules" class="nav-link"><i class="fa-solid fa-layer-group"></i><span>Kategori</span></a>
+            </li>
             <li class="menu-header">Data ORMAWA</li>
             <li>
                 <a href="/data" class="nav-link"><i class="fas fa-solid fa-file"></i><span>Data ORMAWA</span></a>

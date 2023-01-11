@@ -38,7 +38,7 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 // $routes->get('/', 'Home::index');
 // $routes->get('/', 'Pages::index');
-$routes->get('/dump', 'Pages::dump');
+$routes->get('/dump', 'Data::perCategoryResult');
 
 //routes for users configuration
 $routes->get('/', 'Pages::login');
@@ -74,6 +74,7 @@ $routes->get('/data/dump/(:segment)', 'Data::normalizationPerCri/$1');
 
 $routes->get('/data', 'Data::index');
 $routes->get('/data/ormawa', 'Data::indexPembina');
+$routes->get('/data/result', 'Data::indexOrmawa');
 $routes->post('/data/updateStatusData', 'Data::updateStatus');
 $routes->get('/data/(:segment)', 'Data::detailOrmawa/$1');
 $routes->get('/data/(:segment)/(:segment)', 'Data::detailDataCriterion/$1/$2');

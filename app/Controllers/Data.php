@@ -35,6 +35,9 @@ class Data extends BaseController
     public function index()
     {
         $do = $this->finalResult();
+        $perCat = $this->perCategoryResult();
+        $cat = $this->categoryModel->getCategories();
+
         arsort($do);
 
         $data = [
@@ -43,6 +46,8 @@ class Data extends BaseController
             'dataormawa' => $do,
             'ormawa_id' => $this->session->get('id'),
             // 'ormawa_related' => $this->session->get('ormawa_related'),
+            'resultPerCat' => $perCat,
+            'cat' => $cat,
             'role_id' => $this->session->get('role_id')
         ];
 
@@ -53,6 +58,8 @@ class Data extends BaseController
     {
         $do = $this->finalResult();
         arsort($do);
+        $perCat = $this->perCategoryResult();
+        $cat = $this->categoryModel->getCategories();
 
         $getOrmawaPembina = $this->userModel->getUserById($this->session->get('ormawa_related'));
         $data = [
@@ -61,10 +68,34 @@ class Data extends BaseController
             'ormawa_id' => $this->session->get('id'),
             'ormawa_related' => $getOrmawaPembina,
             'dataormawa' => $do,
+            'resultPerCat' => $perCat,
+            'cat' => $cat,
             'role_id' => $this->session->get('role_id')
         ];
 
         return view('pages/data/index_pembina', $data);
+    }
+
+    public function indexOrmawa()
+    {
+        $do = $this->finalResult();
+        arsort($do);
+        $perCat = $this->perCategoryResult();
+        $cat = $this->categoryModel->getCategories();
+
+        $getOrmawaPembina = $this->userModel->getUserById($this->session->get('ormawa_related'));
+        $data = [
+            'title' => 'Data',
+            'users' => $this->userModel->getUsers(),
+            'ormawa_id' => $this->session->get('id'),
+            'ormawa_related' => $getOrmawaPembina,
+            'dataormawa' => $do,
+            'resultPerCat' => $perCat,
+            'cat' => $cat,
+            'role_id' => $this->session->get('role_id')
+        ];
+
+        return view('pages/data/index_ormawa', $data);
     }
 
     public function detailOrmawa($id)
@@ -126,7 +157,7 @@ class Data extends BaseController
         {
             $verificationStatus = $this->verificationStatusModel->getPembinaData();
         } else {
-            $verificationStatus = $this->verificationStatusModel->getJuriData();
+            $verificationStatus = $this->verificationStatusModel->getAllData();
         }
         
 
@@ -448,6 +479,7 @@ class Data extends BaseController
                 }
 
                 $value = 0;
+
             }
 
             $newMatrix += [$datas => $newData];
@@ -497,8 +529,7 @@ class Data extends BaseController
                     {
                         if($or['id'] == $user_id) {
                             $value += $user_value;
-                        }
-                        
+                        } 
                     }
                 }
                 
@@ -508,11 +539,97 @@ class Data extends BaseController
                     $newData += [$or['nama'] => $value];
                 }
                 $value = null;
-
             }
-
             // dd($newData);
             return $newData;
+    }
+
+
+    // public function perCategoryResult()
+    // {
+    //     $ormawa = $this->userModel->getAllOrmawaUsers();
+    //     $data = $this->doNormalization();
+    //     $newData = (array) null;
+
+    //     $value = 0;
+    //     $category = $this->categoryModel->getCategories();
+
+    //     foreach($category as $c) {
+
+    //         $criteria = $this->criterionModel->getCriterionByCategory($c['id']);
+    //         $temp = (array) null;
+    //         foreach ($ormawa as $or) {
+    //             foreach ($data as $d => $d_value) { //$d (kriteria_id) => $d_value (isi data para users di kriteria itu)
+    //                 foreach ($d_value as $user_id => $user_value) {
+    //                     foreach($criteria as $k) {
+    //                         if ($or['id'] == $user_id && $d == $k['id']) {
+    //                             $value += $user_value;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+
+    //             if (!isset($newData)) {
+    //                 $temp = [$or['nama'] => $value];
+    //             } else {
+    //                 $temp += [$or['nama'] => $value];
+    //             }
+    //             $value = null;
+    //         }
+
+    //         if (!isset($newData)) {
+    //             $newData = [$c['category_name'] => $temp];
+    //         } else {
+    //             $newData += [$c['category_name'] => $temp];
+    //         }
+    //     }
+    //     dd($newData);
+    //     return $newData;
+    // }
+
+    public function perCategoryResult()
+    {
+        $ormawa = $this->userModel->getAllOrmawaUsers();
+        $data = $this->doNormalization();
+        $newData = (array) null;
+
+        $value = 0;
+        $category = $this->categoryModel->getCategories();
+
+        foreach ($ormawa as $or) {
+            
+            $temp = (array) null;
+            
+            foreach ($category as $c) {
+            
+                $criteria = $this->criterionModel->getCriterionByCategory($c['id']);
+            
+                foreach ($data as $d => $d_value) { //$d (kriteria_id) => $d_value (isi data para users di kriteria itu)
+                    foreach ($d_value as $user_id => $user_value) {
+                        foreach ($criteria as $k) {
+                            if ($or['id'] == $user_id && $d == $k['id']) {
+                                $value += $user_value;
+                            }
+                        }
+                    }
+                }
+
+                if (!isset($newData)) {
+                    $temp = [$c['category_name'] => $value];
+                } else {
+                    $temp += [$c['category_name'] => $value];
+                }
+                $value = null;
+            }
+
+            if (!isset($newData)) {
+                $newData = [$or['nama'] => $temp];
+            } else {
+                $newData += [$or['nama'] => $temp];
+            }
+        }
+        // dd($newData);
+        return $newData;
     }
 
 }

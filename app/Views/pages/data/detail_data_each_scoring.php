@@ -2,10 +2,9 @@
 
 <?= $this->section('content'); ?>
 
-<?php 
+<?php
 
-switch($role_id)
-{
+switch ($role_id) {
     case 1:
         echo $this->include('layout/sidebar_ormawa');
         break;
@@ -53,10 +52,19 @@ switch($role_id)
                     <td class="col-2">:</td>
                     <td><?= $data['scope']; ?></td>
                 </tr> -->
+                <tr>
+                    <th class="col-4">Link drive</th>
+                    <td class="col-2">:</td>
+                    <td></td>
+                </tr>
                 <tr class="spaceUnder">
                     <th class="col-4">File</th>
                     <td class="col-2">:</td>
-                    <td><a class="btn" style="background-color: #FF8976; color:beige" target="_blank" href="<?= $data['file'] ?>">PDF</a></td>
+                    <td>
+                        <?php if ($data['file'] != null) : ?>
+                            <a class="btn" style="background-color: #4688F4; color:beige" target="_blank" href="<?= $data['file'] ?>">Link</a>
+                        <?php endif; ?>
+                    </td>
                 </tr>
                 <tr>
                     <th class="col-4">Status</th>
@@ -82,9 +90,6 @@ switch($role_id)
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                     </select>
-                                    <script>
-                                        // var oldData = document.getElementsByName('dataOrmawaStatus');
-                                    </script>
                             </form>
                         </div>
                     </td>

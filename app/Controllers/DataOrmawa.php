@@ -72,7 +72,8 @@ class DataOrmawa extends BaseController
     {
         $x = $this->request->getPost('inputDataScoring');
 
-            $file = $this->request->getPost('fileURL');
+            $file = $this->request->getPost('inputDataSupportingFile');
+            // $file = $this->request->getPost('fileURL'); --> if using firestorage
             // $fileName = $file->getRandomName();
 
             $id = $this->request->getPost('hiddenCriterionId');
