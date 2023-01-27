@@ -1,5 +1,9 @@
 # CodeIgniter 4 Application Starter
 
+##MY THESIS IS DONE BRO :D
+
+![Alt Text](https://media.giphy.com/media/Bf1NutptPqsonSRQmv/giphy.gif)
+
 ## What is CodeIgniter?
 
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
