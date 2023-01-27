@@ -1,6 +1,6 @@
 # CodeIgniter 4 Application Starter
 
-##MY THESIS IS DONE BRO :D
+## MY THESIS IS DONE BRO :D
 
 ![Alt Text](https://media.giphy.com/media/Bf1NutptPqsonSRQmv/giphy.gif)
 
